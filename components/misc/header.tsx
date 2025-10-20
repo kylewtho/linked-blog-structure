@@ -22,13 +22,13 @@ const Header = () => {
           <div className="shrink-0 mr-4">
             {/* Logo */}
             <Link href="/" className="block" aria-label="Fleeting Notes">
-              <img className="w-8 h-8" src="/assets/logo.png"/>
+              <img className="w-8 h-8" src="/assets/logo-enlarged.png"/>
             </Link>
           </div>
           
           <h2 className="shrink-0 mr-4 text-2xl font-bold tracking-tight md:tracking-tighter leading-tight">
             <Link href="/" className="block hover:underline" aria-label="Kyle's Blog">
-              Hi, I'm Kyle.
+              Kyle H.
             </Link>
           </h2>
           <ul className="flex grow justify-end flex-wrap items-center">
