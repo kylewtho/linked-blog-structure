@@ -13,18 +13,24 @@ const config: DefaultSeoProps = {
     title: 'Kyle',
     description,
   },
+  additionalMetaTags: [
+    {
+      name: 'apple-mobile-web-app-title',
+      content: 'Kyle'
+    }
+  ],
   additionalLinkTags: [
     {
       rel: 'icon',
       type: 'image/png',
-      href: '/favicon/favicon-32x32.png',
-      sizes: '32x32'
+      href: '/favicon/favicon-96x96.png',
+      sizes: '96x96'
     },
     {
       rel: 'icon',
-      type: 'image/png',
-      href: '/favicon/favicon-16x16.png',
-      sizes: '16x16'
+      type: 'image/svg+xml',
+      href: '/favicon/favicon.svg',
+      sizes: '96x96'
     },
     {
       rel: "apple-touch-icon",
