@@ -3,14 +3,14 @@ import { DefaultSeoProps } from "next-seo";
 const description = "Exploring tech, cybersecurity and digital life from the core."
 // See https://www.npmjs.com/package/next-seo for more options
 const config: DefaultSeoProps = {
-  titleTemplate: "%s | Kyle Kernel",
+  titleTemplate: "%s | Kyle",
   defaultTitle: "Tech, Cyber and Code by Kyle",
   description,
 
   openGraph: {
     type: 'website',
     locale: 'en_AU',
-    title: 'Kyle Kernel',
+    title: 'Kyle',
     description,
   },
   additionalLinkTags: [
