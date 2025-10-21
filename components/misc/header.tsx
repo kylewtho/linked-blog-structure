@@ -22,7 +22,7 @@ const Header = () => {
           <div className="shrink-0 mr-4">
             {/* Logo */}
             <Link href="/" className="block" aria-label="Fleeting Notes">
-              <img className="w-8 h-8" src="/assets/logo-enlarged.png"/>
+              <img className="w-8 h-8" src="/assets/logo.png"/>
             </Link>
           </div>
           

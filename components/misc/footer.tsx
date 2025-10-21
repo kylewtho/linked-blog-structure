@@ -12,7 +12,7 @@ function Footer() {
             <div className="mb-2">
               {/* Logo */}
               <Link href="/" className="inline-block" aria-label="Cruip">
-                <img className="w-8 h-8" src="/assets/logo-enlarged.png"/>
+                <img className="w-8 h-8" src="/assets/logo-koala.png"/>
               </Link>
             </div>
             <div className="text-sm text-gray-600">
