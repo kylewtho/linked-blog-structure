@@ -1,6 +1,7 @@
 import {unified} from 'unified'
 import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
+import remarkBreaks from 'remark-breaks'
 import remarkRehype from 'remark-rehype'
 import rehypeSanitize from 'rehype-sanitize'
 import rehypeRewrite from 'rehype-rewrite';
@@ -27,6 +28,7 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
 
   const file = await unified()
     .use(remarkParse)
+    .use(remarkBreaks)
     .use(remarkGfm)
     .use(remarkRehype)
     .use(rehypeSanitize)
