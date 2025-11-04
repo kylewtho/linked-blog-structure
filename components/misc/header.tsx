@@ -61,21 +61,20 @@ const Header = () => {
           </h2>
 
           {/* Desktop navigation */}
+          <ul className="flex grow justify-end flex-wrap items-center">
             <nav className="hidden md:flex md:grow">
               {/* Desktop menu links */}
-              <ul className="flex grow justify-end flex-wrap items-center">
+              <ul className="flex grow mr-4 justify-end flex-wrap items-center">
                 <li>
-                  <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Home</Link>
-                </li>     
+                  <Link href="https://kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">About</Link>
+                </li>      
                 <li>
                   <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
                 </li>
                 <li>
-                  <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Project</Link>
+                  <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
                 </li>    
-                <li>
-                  <Link href="https://kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resume</Link>
-                </li>              
+          
               </ul>
             </nav>
 
@@ -96,14 +95,15 @@ const Header = () => {
                   >
                 <ul className="px-5 py-2">
                   <li>
+                    <Link href="https://kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">About</Link>
+                  </li>     
+                  <li>
                     <Link href="https://kylestud.io" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
                   </li>
                   <li>
                     <Link href="https://kylestud.io" className="flex text-gray-600 hover:text-gray-900 py-2">Project</Link>
                   </li>
-                  <li>
-                    <Link href="https://kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Resume</Link>
-                  </li>                            
+                       
                   <li>
                     <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 hover:text-gray-900 py-2 w-full">Search</button>
                   </li>                                  
@@ -111,10 +111,9 @@ const Header = () => {
               </Transition>
             </div>
           {/* Search button */}
-          <ul className="flex grow justify-end flex-wrap items-center">
             <li>
               <button className="w-4 h-4 my-auto mx-2 border-black" aria-label="Search" onClick={() => setSearching(!searching)} disabled={searching}>
-                <svg className="w-4 h-4 fill-current text-gray-400" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                <svg className="w-4 h-4fill-current text-gray-400" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
                 </svg>
               </button>
