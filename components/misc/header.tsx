@@ -55,7 +55,7 @@ const Header = () => {
 
           {/* Site name */}
           <h2 className="shrink-0 mr-4 text-2xl font-bold tracking-tight md:tracking-tighter leading-tight">
-            <Link href="/" className="block hover:underline" aria-label="Kyle's Blog">
+            <Link href="/" className="block hover:underline" aria-label="Kyle">
               Kyle
             </Link>
           </h2>
@@ -69,12 +69,14 @@ const Header = () => {
                   <Link href="https://kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">About</Link>
                 </li>      
                 <li>
-                  <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
+                  <Link href="https://blog.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
                 </li>
                 <li>
-                  <Link href="https://kylestud.io" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
+                  <Link href="https://project.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
                 </li>    
-          
+                <li>
+                  <Link href="https://cv.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resume</Link>
+                </li>    
               </ul>
             </nav>
 
@@ -98,12 +100,14 @@ const Header = () => {
                     <Link href="https://kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">About</Link>
                   </li>     
                   <li>
-                    <Link href="https://kylestud.io" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
+                    <Link href="https://blog.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
                   </li>
                   <li>
-                    <Link href="https://kylestud.io" className="flex text-gray-600 hover:text-gray-900 py-2">Project</Link>
+                    <Link href="https://project.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Project</Link>
                   </li>
-                       
+                  <li>
+                    <Link href="https://cv.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Resume</Link>
+                  </li>
                   <li>
                     <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 hover:text-gray-900 py-2 w-full">Search</button>
                   </li>                                  
