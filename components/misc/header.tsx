@@ -69,11 +69,14 @@ const Header = () => {
                   <Link href="https://kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">About</Link>
                 </li>      
                 <li>
-                  <Link href="https://blog.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
+                  <Link href="https://kyleho.net/blog" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
                 </li>
                 <li>
-                  <Link href="https://project.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
+                  <Link href="https://kyleho.net/projects" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
                 </li>    
+                <li>
+                  <Link href="https://kyleho.net/resources" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resources</Link>
+                </li>
                 <li>
                   <Link href="https://cv.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resume</Link>
                 </li>    
@@ -100,10 +103,13 @@ const Header = () => {
                     <Link href="https://kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">About</Link>
                   </li>     
                   <li>
-                    <Link href="https://blog.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
+                    <Link href="https://kyleho.net/blog" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
                   </li>
                   <li>
-                    <Link href="https://project.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Project</Link>
+                    <Link href="https://kyleho.net/projects" className="flex text-gray-600 hover:text-gray-900 py-2">Projects</Link>
+                  </li>
+                  <li>
+                    <Link href="https://kyleho.net/resources" className="flex text-gray-600 hover:text-gray-900 py-2">Resources</Link>
                   </li>
                   <li>
                     <Link href="https://cv.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Resume</Link>
