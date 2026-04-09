@@ -29,6 +29,17 @@ lib/                      # Helper functions
 - **Styling**: Tailwind CSS
 - **Content**: Reads markdown files from the linked-blog repo
 
+## Build Pipeline
+Content flows in via GitHub Actions on every push to linked-blog:
+1. `obsidian-export` converts `publish/` from Obsidian markdown to standard markdown
+2. Output is copied into `common_md/` in this repo
+3. Vercel deploys the result
+
+`common_md/` is auto-generated — do not edit it manually.
+
+## Formatter
+No formatter is configured in this project (no Prettier or Biome). Use VS Code's built-in formatter if needed.
+
 ## Important Notes
 - **Do not change the structure of this repo** — the rendering pipeline is stable and intentional
 - Content changes belong in the linked-blog repo, not here
