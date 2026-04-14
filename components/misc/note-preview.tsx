@@ -11,7 +11,7 @@ const NotePreview = ({ title, content }: Props) => {
         {title}
       </span>
       <span
-        className={`block font-normal text-gray-600 whitespace-pre-line max-h-[90px] truncate`}
+        className={`block font-normal text-gray-600 whitespace-pre-line max-h-[90px] overflow-hidden`}
       >
         {content}
       </span>

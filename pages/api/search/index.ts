@@ -1,7 +1,6 @@
 import { Searcher } from 'fast-fuzzy';
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllPosts  } from '../../../lib/api'
-import { getMDExcerpt } from '../../../lib/markdownToHtml';
+import { getAllPosts, getMDExcerpt } from '../../../lib/api'
 
 const allPosts = getAllPosts([
   "slug", "title", "content", "author", "date"

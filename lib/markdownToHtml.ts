@@ -7,12 +7,10 @@ import rehypeSanitize from 'rehype-sanitize'
 import rehypeRewrite from 'rehype-rewrite';
 import rehypeStringify from 'rehype-stringify'
 import { getLinksMapping, getPostBySlug, getSlugFromHref, updateMarkdownLinks } from './api'
-import removeMd from 'remove-markdown'
-import {Element} from 'hast-util-select'
 import { renderToStaticMarkup } from "react-dom/server"
 import NotePreview from '../components/misc/note-preview'
 import { fromHtml } from 'hast-util-from-html'
-
+import { Element, Root } from 'hast'
 
 export async function markdownToHtml(markdown: string, currSlug: string) {
   markdown = updateMarkdownLinks(markdown, currSlug);
@@ -21,8 +19,8 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
   const links = (getLinksMapping())[currSlug] as string[]
   const linkNodeMapping = new Map<string, Element>();
   for (const l of links) {
-    const post = getPostBySlug(l, ['title', 'content']);
-    const node = createNoteNode(post.title, post.content)
+    const post = getPostBySlug(l, ['title', 'excerpt']);
+    const node = createNoteNode(post.title, post.excerpt)
     linkNodeMapping[l] = node
   }
 
@@ -42,19 +40,10 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
   return htmlStr;
 }
 
-export function getMDExcerpt(markdown: string, length: number = 500) {
-  const text = removeMd(markdown, {
-    stripListLeaders: false, 
-    gfm: true,
-  }) as string
-  return text.slice(0, length).trim();
-}
-
-export function createNoteNode(title: string, content: string) {
-  const mdContentStr = getMDExcerpt(content);
-  const htmlStr = renderToStaticMarkup(NotePreview({ title, content: mdContentStr }))
-  const noteNode = fromHtml(htmlStr);
-  return noteNode;
+export function createNoteNode(title: string, excerpt: string) {
+  const htmlStr = renderToStaticMarkup(NotePreview({ title, content: excerpt }))
+  const noteNode = fromHtml(htmlStr, { fragment: true }) as Root;
+  return noteNode.children[0] as Element;
 }
 
 function rewriteLinkNodes (node, linkNodeMapping: Map<string, any>, currSlug) {
