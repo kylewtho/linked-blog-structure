@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useEffect, useState, useRef } from 'react';
 import Search from './search';
 import Transition from '../utils/transitions';
+import { BLOG_CONFIG } from '../../lib/config';
 
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -48,15 +49,15 @@ const Header = () => {
           {/* Site branding */}
           <div className="shrink-0 mr-4">
             {/* Logo */}
-            <Link href="/" className="block" aria-label="Fleeting Notes">
+            <Link href="/" className="block" aria-label={BLOG_CONFIG.title}>
               <img className="w-8 h-8" src="/assets/logo.png"/>
             </Link>
           </div>
 
           {/* Site name */}
           <h2 className="shrink-0 mr-4 text-2xl font-bold tracking-tight md:tracking-tighter leading-tight">
-            <Link href="/" className="block hover:underline" aria-label="Kyle">
-              Kyle
+            <Link href="/" className="block hover:underline" aria-label={BLOG_CONFIG.title}>
+              {BLOG_CONFIG.title}
             </Link>
           </h2>
 
@@ -65,21 +66,13 @@ const Header = () => {
             <nav className="hidden md:flex md:grow">
               {/* Desktop menu links */}
               <ul className="flex grow mr-4 justify-end flex-wrap items-center">
-                <li>
-                  <Link href="https://kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">About</Link>
-                </li>      
-                <li>
-                  <Link href="https://kyleho.net/blog" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Blog</Link>
-                </li>
-                <li>
-                  <Link href="https://kyleho.net/projects" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Projects</Link>
-                </li>    
-                <li>
-                  <Link href="https://kyleho.net/resources" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resources</Link>
-                </li>
-                <li>
-                  <Link href="https://cv.kyleho.net" className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">Resume</Link>
-                </li>    
+                {BLOG_CONFIG.navLinks.map((link) => (
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </nav>
 
@@ -99,21 +92,13 @@ const Header = () => {
                   appear={undefined}
                   >
                 <ul className="px-5 py-2">
-                  <li>
-                    <Link href="https://kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">About</Link>
-                  </li>     
-                  <li>
-                    <Link href="https://kyleho.net/blog" className="flex text-gray-600 hover:text-gray-900 py-2">Blog</Link>
-                  </li>
-                  <li>
-                    <Link href="https://kyleho.net/projects" className="flex text-gray-600 hover:text-gray-900 py-2">Projects</Link>
-                  </li>
-                  <li>
-                    <Link href="https://kyleho.net/resources" className="flex text-gray-600 hover:text-gray-900 py-2">Resources</Link>
-                  </li>
-                  <li>
-                    <Link href="https://cv.kyleho.net" className="flex text-gray-600 hover:text-gray-900 py-2">Resume</Link>
-                  </li>
+                  {BLOG_CONFIG.navLinks.map((link) => (
+                    <li key={link.href}>
+                      <Link href={link.href} className="flex text-gray-600 hover:text-gray-900 py-2">
+                        {link.name}
+                      </Link>
+                    </li>
+                  ))}
                   <li>
                     <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 hover:text-gray-900 py-2 w-full">Search</button>
                   </li>                                  

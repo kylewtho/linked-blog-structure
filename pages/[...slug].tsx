@@ -7,6 +7,7 @@ import path from 'path'
 import PostSingle from '../components/blog/post-single'
 import Layout from '../components/misc/layout'
 import { NextSeo } from 'next-seo'
+import { BLOG_CONFIG } from '../lib/config'
 
 type Items = {
   title: string,
@@ -34,6 +35,7 @@ export default function Post({ post, backlinks }: Props) {
           <NextSeo
             title={post.title}
             description={description}
+            canonical={`${BLOG_CONFIG.siteUrl}/${post.slug}`}
             openGraph={{
               title: post.title,
               description,
