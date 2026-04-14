@@ -14,7 +14,7 @@ export default function Blog({ posts }: Props) {
     <Layout>
       <NextSeo
         title="Blog"
-        description={`Notes on tech, cybersecurity, and things I'm learning — by ${BLOG_CONFIG.author.name}.`}
+        description={`Notes on tech, cybersecurity and things I'm learning — by ${BLOG_CONFIG.author.name}.`}
         canonical={`${BLOG_CONFIG.siteUrl}/blog`}
       />
       <PostList posts={posts} />
