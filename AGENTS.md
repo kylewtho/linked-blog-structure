@@ -61,6 +61,18 @@ GET /some-note → pages/[...slug].tsx    (no concrete match, catch-all handles 
 
 Adding `pages/index.tsx` or `pages/blog.tsx` does **not** conflict with `[...slug].tsx`. The catch-all simply never sees `/` or `/blog`. The claim that static asset requests (`/_next/static/**`) can fall into the catch-all is false — Next.js serves them at the framework layer before any page routing.
 
+### Reserved Slugs — Keep `RESERVED_SLUGS` in Sync
+
+`pages/[...slug].tsx` has a `RESERVED_SLUGS` set near the bottom of the file. Any slug listed there is excluded from `getStaticPaths` so it doesn't conflict with a concrete page file.
+
+**Current reserved slugs:** `blog`
+
+**Rule:** When adding a new concrete page (e.g. `pages/tags.tsx` → `/tags`), add the corresponding slug to `RESERVED_SLUGS` if a markdown file with that name exists in the content repo. Failing to do this causes a "Conflicting paths returned from getStaticPaths" build error.
+
+The content repo (`linked-blog`) has `publish/blog.md` — this is superseded by `pages/blog.tsx` and is intentionally excluded.
+
+---
+
 ### Clear `.next` After Structural Changes
 
 **Always run `rm -rf .next` before restarting the dev server after:**

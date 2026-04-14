@@ -22,8 +22,19 @@ export default function Blog({ posts }: Props) {
   )
 }
 
+function isExcluded(slug: string): boolean {
+  return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
+    if (pattern.endsWith('/*')) {
+      const prefix = pattern.slice(0, -2) // strip trailing /*
+      return slug.startsWith(prefix + '/')
+    }
+    return slug === pattern
+  })
+}
+
 export async function getStaticProps() {
-  const posts = await getAllPosts(['slug', 'title', 'date', 'excerpt', 'author'])
+  const posts = (await getAllPosts(['slug', 'title', 'date', 'excerpt', 'author']))
+    .filter((post) => !isExcluded(post.slug))
   return {
     props: { posts },
   }

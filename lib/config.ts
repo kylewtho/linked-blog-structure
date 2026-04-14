@@ -21,5 +21,17 @@ export const BLOG_CONFIG = {
     { name: "LinkedIn", href: "https://linkedin.com/in/kylewtho" },
   ],
   featuredPosts: [] as { slug: string; title: string }[],
+  // Slugs excluded from the /blog feed.
+  // - Exact slug:    'home'            → excludes home.md only
+  // - Folder prefix: 'descriptions/*'  → excludes all files inside descriptions/
+  blogExcludedSlugs: [
+    'home',
+    'faq',
+    'projects',
+    'resources',
+    'privacy-policy',
+    'terms-and-conditions',
+    'descriptions/*',
+  ],
   siteUrl: "https://kyleho.net",
 }
