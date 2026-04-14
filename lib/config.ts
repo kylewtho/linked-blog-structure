@@ -32,7 +32,8 @@ export const BLOG_CONFIG = {
     'resources',
     'terms-and-conditions',
     'descriptions/*',
-    'placeholders/*'
+    'placeholders/*',
+    'tutorials/*'
   ],
   siteUrl: "https://kyleho.net",
 }
