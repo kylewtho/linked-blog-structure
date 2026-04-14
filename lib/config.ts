@@ -27,11 +27,12 @@ export const BLOG_CONFIG = {
   blogExcludedSlugs: [
     'home',
     'faq',
+    'privacy-policy',
     'projects',
     'resources',
-    'privacy-policy',
     'terms-and-conditions',
     'descriptions/*',
+    'placeholders/*'
   ],
   siteUrl: "https://kyleho.net",
 }
