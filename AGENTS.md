@@ -515,6 +515,9 @@ For a single agent working sequentially, follow this order:
 
 ---
 
+## Known fix list (manual update by Kyle through testing, please add this to the plan)
+2.6 Fix: Blog posts in \blog should be shown in chronological order (newest at the top)
+
 ## Current Status
 
 | Phase | Task | Status |
@@ -528,6 +531,7 @@ For a single agent working sequentially, follow this order:
 | 2 | 2.3 Create pages/blog.tsx + post-list | `[x]` |
 | 2 | 2.4 Add canonical to [...slug].tsx | `[x]` |
 | 2 | 2.5 Verify Blog nav link | `[x]` |
+| 2 | 2.6 Fix: chronological order | `[ ]` |
 | 3 | 3.1 RSS feed | `[ ]` |
 | 3 | 3.2 Giscus comments | `[ ]` needs Kyle config |
 | 3 | 3.3 Dark mode | `[ ]` |
@@ -542,7 +546,14 @@ For a single agent working sequentially, follow this order:
 
 ## Change Log
 
-### 2026-04-14
+### 2026-04-14 (session end)
+- Phase 1 complete: config.ts handles fixed, footer.tsx dynamic, post-meta.tsx author links fixed
+- Phase 2 complete: pages/index.tsx (renders home.md via PostSingle), pages/blog.tsx + post-list.tsx (paginated feed), canonical URLs in [...slug].tsx, redirect removed
+- Added RESERVED_SLUGS to [...slug].tsx to prevent build conflicts with concrete page routes
+- Added blogExcludedSlugs to BLOG_CONFIG (supports exact slugs and folder/* patterns)
+- Added Developer Notes section to AGENTS.md covering routing precedence and .next cache rules
+
+### 2026-04-14 (session start)
 - Full audit of Phase 1 actual state — identified outstanding bugs in footer.tsx, post-meta.tsx, config.ts
 - Clarified architecture: home.md remains as landing page content, rendered via new pages/index.tsx (not a redirect)
 - Separated blog feed (/blog) from landing page (/)
