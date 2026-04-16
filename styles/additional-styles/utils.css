@@ -20,6 +20,17 @@
   background-color: rgb(243 250 251) !important;
 }
 
+/* Dark mode — global base styles */
+:global(.dark) body {
+  background-color: #0d1117;
+  color: #e6edf3;
+}
+
+:global(.dark) .internal-link {
+  color: #58a6ff;
+  background-color: rgb(21 34 50) !important;
+}
+
 /* Typography */
 .h1 {
     @apply text-4xl font-extrabold leading-tight tracking-tighter;

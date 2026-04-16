@@ -4,10 +4,28 @@ import Search from './search';
 import Transition from '../utils/transitions';
 import { BLOG_CONFIG } from '../../lib/config';
 
+function useDarkMode() {
+  const [dark, setDark] = useState(false);
+
+  useEffect(() => {
+    setDark(document.documentElement.classList.contains('dark'));
+  }, []);
+
+  const toggle = () => {
+    const next = !dark;
+    setDark(next);
+    document.documentElement.classList.toggle('dark', next);
+    try { localStorage.setItem('theme', next ? 'dark' : 'light'); } catch (e) {}
+  };
+
+  return { dark, toggle };
+}
+
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [top, setTop] = useState(true);
   const [searching, setSearching] = useState(false);
+  const { dark, toggle: toggleDark } = useDarkMode();
 
   const trigger = useRef(null);
   const mobileNav = useRef(null);
@@ -43,7 +61,7 @@ const Header = () => {
   }, [top]);  
 
   return (
-    <header className={`fixed w-full z-30 md:bg-white/90 transition duration-300 ease-in-out ${!top && 'bg-white backdrop-blur-sm shadow-lg'}`}>
+    <header className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-gray-900/90 transition duration-300 ease-in-out ${!top && 'bg-white dark:bg-gray-900 backdrop-blur-sm shadow-lg'}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
@@ -68,7 +86,7 @@ const Header = () => {
               <ul className="flex grow mr-4 justify-end flex-wrap items-center">
                 {BLOG_CONFIG.navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-gray-600 hover:text-gray-900 px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
+                    <Link href={link.href} className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
                       {link.name}
                     </Link>
                   </li>
@@ -105,6 +123,26 @@ const Header = () => {
                 </ul>
               </Transition>
             </div>
+          {/* Dark mode toggle */}
+            <li>
+              <button
+                className="w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 transition"
+                aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
+                onClick={toggleDark}
+              >
+                {dark ? (
+                  /* Sun icon */
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.71.71M6.34 17.66l-.71.71m12.02 0-.71-.71M6.34 6.34l-.71-.71M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+                  </svg>
+                ) : (
+                  /* Moon icon */
+                  <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+                  </svg>
+                )}
+              </button>
+            </li>
           {/* Search button */}
             <li>
               <button className="w-4 h-4 my-auto mx-2 border-black" aria-label="Search" onClick={() => setSearching(!searching)} disabled={searching}>

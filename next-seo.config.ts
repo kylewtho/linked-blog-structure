@@ -45,6 +45,11 @@ const config: DefaultSeoProps = {
     {
       rel: "manifest",
       href: "/favicon/site.webmanifest"
+    },
+    {
+      rel: "alternate",
+      type: "application/rss+xml",
+      href: "/api/rss",
     }
   ]
 };

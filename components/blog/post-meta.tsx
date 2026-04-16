@@ -5,11 +5,13 @@ import { BLOG_CONFIG } from '../../lib/config'
 type Props = {
   author?: Author,
   date?: string,
+  readingTime?: string,
 }
 
 const PostMeta = ({
   author,
-  date
+  date,
+  readingTime,
 }: Props) => {
   if (!(author || date)) return null;
   return (
@@ -42,6 +44,7 @@ const PostMeta = ({
           )}
           {(author && date) && <span className="text-gray-600"> · </span>}
           {date && (<span className="text-gray-600"><DateFormatter dateString={date} /></span>)}
+          {readingTime && <span className="text-gray-600"> · {readingTime}</span>}
         </div>
       </div>
     </>

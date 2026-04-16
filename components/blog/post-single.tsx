@@ -9,6 +9,7 @@ type Props = {
   content: string,
   date?: string,
   author?: Author,
+  readingTime?: string,
   backlinks: { [k: string]: {
       title: string,
       excerpt: string,
@@ -21,6 +22,7 @@ function PostSingle({
   date,
   author,
   content,
+  readingTime,
   backlinks
 }: Props) {
   return (
@@ -47,7 +49,7 @@ function PostSingle({
                   {/* Article meta */}
                   {(author || date) && (
                     <>
-                      <PostMeta author={author} date={date}/>
+                      <PostMeta author={author} date={date} readingTime={readingTime}/>
                       <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
                     </>
                   )}

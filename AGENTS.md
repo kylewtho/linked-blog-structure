@@ -14,6 +14,39 @@ Kyle's personal blog and digital garden. Built on Next.js 15 + Tailwind CSS, sou
 
 ---
 
+## Git Workflow
+
+Always `git pull` before starting work. Commit and `git push` when done.
+
+---
+
+## Build Pipeline
+
+Content flows in via GitHub Actions on every push to `linked-blog`:
+1. `obsidian-export` converts `publish/` from Obsidian markdown to standard markdown
+2. Output is copied into `common_md/` in this repo
+3. Vercel deploys the result
+
+`common_md/` is auto-generated — **do not edit it manually**.
+
+---
+
+## Formatter
+
+No formatter is configured (no Prettier or Biome). Use VS Code's built-in formatter if needed.
+
+---
+
+## Important Notes
+
+- **Do not change the structure of this repo** — the rendering pipeline is stable and intentional
+- Content changes belong in the `linked-blog` repo, not here
+- Layout and component changes require care — they affect every page on the site
+- Run `npm install` before starting the dev server on a new machine
+- Dev server: `npm run dev`
+
+---
+
 ## Repository Map (key files only)
 
 ```
@@ -531,11 +564,11 @@ For a single agent working sequentially, follow this order:
 | 2 | 2.3 Create pages/blog.tsx + post-list | `[x]` |
 | 2 | 2.4 Add canonical to [...slug].tsx | `[x]` |
 | 2 | 2.5 Verify Blog nav link | `[x]` |
-| 2 | 2.6 Fix: chronological order | `[ ]` |
-| 3 | 3.1 RSS feed | `[ ]` |
+| 2 | 2.6 Fix: chronological order | `[x]` |
+| 3 | 3.1 RSS feed | `[x]` |
 | 3 | 3.2 Giscus comments | `[ ]` needs Kyle config |
-| 3 | 3.3 Dark mode | `[ ]` |
-| 3 | 3.4 Reading time | `[ ]` |
+| 3 | 3.3 Dark mode | `[x]` |
+| 3 | 3.4 Reading time | `[x]` |
 | 3 | 3.5 Tags system | `[ ]` |
 | 4 | 4.1 Shiki highlighting | `[ ]` |
 | 4 | 4.2 React 19 upgrade | `[ ]` |
@@ -545,6 +578,13 @@ For a single agent working sequentially, follow this order:
 ---
 
 ## Change Log
+
+### 2026-04-16
+- Merged CLAUDE.md into AGENTS.md (git workflow, build pipeline, formatter, important notes); CLAUDE.md now just `@AGENTS.md`
+- 2.6: Confirmed `getAllPosts` already sorts by date descending — no code change needed
+- 3.1: RSS 2.0 feed at `GET /api/rss` (`pages/api/rss.ts`); respects `blogExcludedSlugs`; RSS `<link>` tag added to `next-seo.config.ts`
+- 3.4: Reading time (`lib/readingTime.ts`) — wired through `[...slug].tsx` → `PostSingle` → `PostMeta`; displays "N min read" next to date
+- 3.3: Dark mode — `darkMode: 'class'` in Tailwind; FOUC-prevention script in `_document.tsx`; sun/moon toggle in header; dark variants on header, nav, markdown body, code blocks, tables
 
 ### 2026-04-14 (session end)
 - Phase 1 complete: config.ts handles fixed, footer.tsx dynamic, post-meta.tsx author links fixed

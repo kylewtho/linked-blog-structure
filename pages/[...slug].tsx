@@ -8,6 +8,7 @@ import PostSingle from '../components/blog/post-single'
 import Layout from '../components/misc/layout'
 import { NextSeo } from 'next-seo'
 import { BLOG_CONFIG } from '../lib/config'
+import { getReadingTime } from '../lib/readingTime'
 
 type Items = {
   title: string,
@@ -18,9 +19,10 @@ type Props = {
   post: PostType
   slug: string
   backlinks: { [k: string]: Items }
+  readingTime: string
 }
 
-export default function Post({ post, backlinks }: Props) {
+export default function Post({ post, backlinks, readingTime }: Props) {
   const router = useRouter()
   const description = post.excerpt.slice(0, 155)
   if (!router.isFallback && !post?.slug) {
@@ -54,6 +56,7 @@ export default function Post({ post, backlinks }: Props) {
             date={post.date}
             author={post.author}
             backlinks={backlinks}
+            readingTime={readingTime}
           />
         </Layout>
       )}
@@ -79,6 +82,7 @@ export async function getStaticProps({ params }: Params) {
     'content',
     'ogImage',
   ])
+  const readingTime = getReadingTime(post.content || '')
   const content = await markdownToHtml(post.content || '', slug)
   const linkMapping = await getLinksMapping()
   const backlinks = Object.keys(linkMapping).filter(k => linkMapping[k].includes(post.slug) && k !== post.slug)
@@ -94,6 +98,7 @@ export async function getStaticProps({ params }: Params) {
         content,
       },
       backlinks: backlinkNodes,
+      readingTime,
     },
   }
 }
