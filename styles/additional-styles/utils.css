@@ -21,6 +21,14 @@
 }
 
 /* Dark mode — global base styles */
+
+/* Shiki dual-theme: activate dark palette when .dark is on <html> */
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
+}
+
 .dark body {
   background-color: #0d1117;
   color: #e6edf3;

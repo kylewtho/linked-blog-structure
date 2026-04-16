@@ -985,12 +985,7 @@
   background-color: rgba(110,118,129,0.4);
 }
 
-/* Shiki dark-theme switching — .shiki is a global class (not module-scoped), must use :global() */
-:global(.dark .shiki),
-:global(.dark .shiki span) {
-  color: var(--shiki-dark) !important;
-  background-color: var(--shiki-dark-bg) !important;
-}
+/* Shiki dark-theme switching is handled in styles/additional-styles/utils.css (global CSS) */
 
 :global(.dark) .markdown-body table th,
 :global(.dark) .markdown-body table td {
