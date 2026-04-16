@@ -61,7 +61,7 @@ const Header = () => {
   }, [top]);  
 
   return (
-    <header className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-[#1a1a1a]/90 transition duration-300 ease-in-out ${!top && 'bg-white dark:bg-[#1a1a1a] backdrop-blur-sm shadow-lg'}`}>
+    <header className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-zinc-900/90 transition duration-300 ease-in-out ${!top && 'bg-white dark:bg-zinc-900 backdrop-blur-sm shadow-lg'}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
