@@ -45,7 +45,7 @@ function PostList({ posts }: Props) {
 
           <div className="max-w-3xl pb-12 md:pb-20 text-center md:text-left">
             <h1 className="h1 mb-4">Blog</h1>
-            <p className="text-xl text-gray-600 dark:text-gray-400">Notes on tech, cybersecurity, and things I&apos;m learning.</p>
+            <p className="text-xl text-gray-600 dark:text-zinc-400">Notes on tech, cybersecurity, and things I&apos;m learning.</p>
           </div>
 
           {/* Tag filter chips */}
@@ -57,8 +57,8 @@ function PostList({ posts }: Props) {
                   onClick={() => handleTagClick(tag)}
                   className={`text-sm px-3 py-1 rounded-full border transition ${
                     activeTag === tag
-                      ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 border-gray-900 dark:border-gray-100'
-                      : 'border-gray-300 dark:border-gray-600 text-gray-600 dark:text-gray-300 hover:border-gray-900 dark:hover:border-gray-300'
+                      ? 'bg-gray-900 dark:bg-zinc-100 text-white dark:text-zinc-900 border-gray-900 dark:border-zinc-100'
+                      : 'border-gray-300 dark:border-zinc-600 text-gray-600 dark:text-zinc-300 hover:border-gray-900 dark:hover:border-zinc-300'
                   }`}
                 >
                   #{tag}
@@ -67,7 +67,7 @@ function PostList({ posts }: Props) {
               {activeTag && (
                 <button
                   onClick={() => { setActiveTag(null); setPage(1) }}
-                  className="text-sm px-3 py-1 rounded-full text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300 transition"
+                  className="text-sm px-3 py-1 rounded-full text-gray-400 dark:text-zinc-500 hover:text-gray-600 dark:hover:text-zinc-300 transition"
                 >
                   ✕ clear
                 </button>
@@ -80,7 +80,7 @@ function PostList({ posts }: Props) {
             {/* Articles */}
             <div className="md:grow -mt-4">
               {paginated.length === 0 && (
-                <p className="text-gray-500 dark:text-gray-400 py-8">No posts with tag &ldquo;{activeTag}&rdquo;.</p>
+                <p className="text-gray-500 dark:text-zinc-400 py-8">No posts with tag &ldquo;{activeTag}&rdquo;.</p>
               )}
               {paginated.map((post) => (
                 <PostPreview
@@ -102,7 +102,7 @@ function PostList({ posts }: Props) {
                     <button
                       key={p}
                       onClick={() => { setPage(p); window.scrollTo(0, 0) }}
-                      className={`px-3 py-1 rounded ${p === page ? 'bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900' : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'}`}
+                      className={`px-3 py-1 rounded ${p === page ? 'bg-gray-900 dark:bg-zinc-100 text-white dark:text-zinc-900' : 'text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-white'}`}
                     >
                       {p}
                     </button>
@@ -117,7 +117,7 @@ function PostList({ posts }: Props) {
                 <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Featured Posts</h4>
                 <ul className="-my-2">
                   {BLOG_CONFIG.featuredPosts.map((post) => (
-                    <li className="flex py-2 border-b border-gray-200 dark:border-gray-700" key={post.slug}>
+                    <li className="flex py-2 border-b border-gray-200 dark:border-zinc-700" key={post.slug}>
                       <article>
                         <h3 className="font-medium mb-1">
                           <Link href={`/${post.slug}`} className="hover:underline">

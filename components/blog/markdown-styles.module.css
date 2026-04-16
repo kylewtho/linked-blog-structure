@@ -953,66 +953,66 @@
 
 /* Dark mode overrides */
 :global(.dark) .markdown-body {
-  color: #e6edf3;
+  color: #e4e4e7;
   background-color: transparent;
 }
 
 :global(.dark) .markdown-body a {
-  color: #58a6ff;
+  color: #a1a1aa;
 }
 
 :global(.dark) .markdown-body h1,
 :global(.dark) .markdown-body h2 {
-  border-bottom-color: #30363d;
+  border-bottom-color: #3f3f46;
 }
 
 :global(.dark) .markdown-body h6 {
-  color: #8b949e;
+  color: #71717a;
 }
 
 :global(.dark) .markdown-body hr {
-  background-color: #30363d;
-  border-bottom-color: #30363d;
+  background-color: #3f3f46;
+  border-bottom-color: #3f3f46;
 }
 
 :global(.dark) .markdown-body blockquote {
-  color: #8b949e;
-  border-left-color: #3d444d;
+  color: #71717a;
+  border-left-color: #52525b;
 }
 
 :global(.dark) .markdown-body code,
 :global(.dark) .markdown-body tt {
-  background-color: rgba(110,118,129,0.4);
+  background-color: rgba(113,113,122,0.3);
 }
 
 /* Shiki dark-theme switching is handled in styles/additional-styles/utils.css (global CSS) */
 
 :global(.dark) .markdown-body table th,
 :global(.dark) .markdown-body table td {
-  border-color: #3d444d;
+  border-color: #52525b;
 }
 
 :global(.dark) .markdown-body table tr {
   background-color: transparent;
-  border-top-color: #3d444d;
+  border-top-color: #52525b;
 }
 
 :global(.dark) .markdown-body table tr:nth-child(2n) {
-  background-color: #161b22;
+  background-color: #27272a;
 }
 
 :global(.dark) .markdown-body kbd {
-  color: #e6edf3;
-  background-color: #161b22;
-  border-color: rgba(110,118,129,0.4);
+  color: #e4e4e7;
+  background-color: #27272a;
+  border-color: rgba(113,113,122,0.3);
 }
 
 :global(.dark) .markdown-body mark {
-  background-color: #3d2e00;
-  color: #e6edf3;
+  background-color: #3f3f00;
+  color: #e4e4e7;
 }
 
 :global(.dark) .markdown-body .footnotes {
-  color: #8b949e;
-  border-top-color: #3d444d;
+  color: #71717a;
+  border-top-color: #52525b;
 }

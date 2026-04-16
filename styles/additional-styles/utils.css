@@ -30,13 +30,13 @@
 }
 
 .dark body {
-  background-color: #0d1117;
-  color: #e6edf3;
+  background-color: #1a1a1a;
+  color: #e4e4e7;
 }
 
 .dark .internal-link {
-  color: #58a6ff;
-  background-color: rgb(21 34 50) !important;
+  color: #a1a1aa;
+  background-color: rgb(39 39 42) !important;
 }
 
 /* Typography */

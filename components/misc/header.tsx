@@ -61,7 +61,7 @@ const Header = () => {
   }, [top]);  
 
   return (
-    <header className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-gray-900/90 transition duration-300 ease-in-out ${!top && 'bg-white dark:bg-gray-900 backdrop-blur-sm shadow-lg'}`}>
+    <header className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-zinc-900/90 transition duration-300 ease-in-out ${!top && 'bg-white dark:bg-zinc-900 backdrop-blur-sm shadow-lg'}`}>
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Site branding */}
@@ -86,7 +86,7 @@ const Header = () => {
               <ul className="flex grow mr-4 justify-end flex-wrap items-center">
                 {BLOG_CONFIG.navLinks.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
+                    <Link href={link.href} className="text-gray-600 dark:text-zinc-300 hover:text-gray-900 dark:hover:text-white px-3 lg:px-5 py-2 flex items-center transition duration-150 ease-in-out">
                       {link.name}
                     </Link>
                   </li>
@@ -126,7 +126,7 @@ const Header = () => {
           {/* Dark mode toggle */}
             <li>
               <button
-                className="w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 transition"
+                className="w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-zinc-400 dark:hover:text-zinc-200 transition"
                 aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
                 onClick={toggleDark}
               >
@@ -145,7 +145,7 @@ const Header = () => {
             </li>
           {/* Search button */}
             <li>
-              <button className="w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 transition" aria-label="Search" onClick={() => setSearching(!searching)} disabled={searching}>
+              <button className="w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-zinc-400 dark:hover:text-zinc-200 transition" aria-label="Search" onClick={() => setSearching(!searching)} disabled={searching}>
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
                   <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
                 </svg>
