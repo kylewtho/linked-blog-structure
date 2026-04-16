@@ -13,7 +13,7 @@ function Footer() {
         );
       case 'mastodon':
         return (
-          <svg className="w-8 h-8 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <svg className="w-8 h-8 fill-current" viewBox="-10 -10 42 42" xmlns="http://www.w3.org/2000/svg">
             <path d="M23.268 5.313c-.35-2.578-2.617-4.61-5.304-5.004C17.51.242 15.792 0 11.813 0h-.03c-3.98 0-4.835.242-5.288.309C3.882.692 1.496 2.518.917 5.127.303 7.758.148 10.33.148 13.41c0 1.126.073 2.235.147 3.307.274 3.99 2.762 5.846 6.264 6.334 1.99.272 3.846.333 5.39.308 3.33-.053 5.05-.538 5.05-.538l-.138-2.14s-2.138.582-4.723.619c-2.552.038-4.046-.271-4.586-.517-.694-.313-1.479-1.062-1.634-2.503-.018-.165-.034-.331-.044-.497.63.158 1.222.267 1.843.332 2.361.246 4.62.113 6.941-.096 2.747-.246 4.908-.907 5.614-2.774.23-.6.429-1.396.429-2.456 0-3.136-.153-5.853-.733-8.254zm-4.597 7.515h-2.393V7.445c0-.616-.287-1.11-.887-1.11-.573 0-.88.477-.88 1.11v4.474h-2.393V7.445c0-.616-.287-1.11-.887-1.11-.573 0-.88.477-.88 1.11v5.383h-2.393V7.078c0-1.266.545-2.467 2.1-2.467 1.05 0 1.807.526 2.112 1.276l.419.81.418-.81c.305-.75 1.062-.75 2.112-1.276 1.555 0 2.1 1.201 2.1 2.467v5.75z" />
           </svg>
         );
@@ -42,17 +42,7 @@ function Footer() {
   return (
     <footer>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
-        <div className="grid sm:grid-cols-12 pt-8 gap-8 md:pt-12 border-t border-gray-200">
-          <div className="sm:col-span-12 md:col-span-6">
-            <div className="mb-2">
-              <Link href="/" className="inline-block" aria-label={BLOG_CONFIG.title}>
-                <img className="w-24 h-24" src="/assets/logo-koala.png" alt={BLOG_CONFIG.title}/>
-              </Link>
-            </div>
-          </div>
-        </div>      
-
-        <div className="md:flex md:items-center md:justify-between py-4 md:py-8">
+        <div className="md:flex md:items-center md:justify-between py-4 md:py-8 border-t border-gray-200">
           {/* Copyrights note */}
           <div className="text-sm text-gray-600 mr-4">
             &copy; {new Date().getFullYear()} {BLOG_CONFIG.title}. All rights reserved.
@@ -64,7 +54,7 @@ function Footer() {
               <li key={link.name} className={index > 0 ? 'ml-4' : ''}>
                 <Link 
                   href={link.href} 
-                  className="flex justify-center items-center text-gray-600 hover:text-gray-900 bg-white hover:bg-white-100 rounded-full shadow transition duration-150 ease-in-out" 
+                  className="flex justify-center items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full shadow transition duration-150 ease-in-out"
                   aria-label={link.name}
                   target="_blank"
                   rel="noopener noreferrer"
