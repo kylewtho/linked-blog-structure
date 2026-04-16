@@ -5,7 +5,6 @@ export const BLOG_CONFIG = {
     name: "Kyle",
     picture: "https://avatars.githubusercontent.com/u/55761838?v=4",
     bio: "Software Engineer & Digital Gardener",
-    twitter: "@kylewtho",
     github: "kylewtho",
   },
   navLinks: [
@@ -16,8 +15,8 @@ export const BLOG_CONFIG = {
     { name: "Resume", href: "https://cv.kyleho.net" },
   ],
   footerLinks: [
-    { name: "X", href: "https://x.com/kylewtho" },
     { name: "GitHub", href: "https://github.com/kylewtho" },
+    { name: "Mastodon", href: "https://infosec.exchange/@kriegerkh" },
     { name: "LinkedIn", href: "https://linkedin.com/in/kylewtho" },
   ],
   featuredPosts: [] as { slug: string; title: string }[],

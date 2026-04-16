@@ -569,8 +569,8 @@ For a single agent working sequentially, follow this order:
 | 3 | 3.2 Giscus comments | `[ ]` needs Kyle config |
 | 3 | 3.3 Dark mode | `[x]` |
 | 3 | 3.4 Reading time | `[x]` |
-| 3 | 3.5 Tags system | `[ ]` |
-| 4 | 4.1 Shiki highlighting | `[ ]` |
+| 3 | 3.5 Tags system | `[x]` |
+| 4 | 4.1 Shiki highlighting | `[x]` |
 | 4 | 4.2 React 19 upgrade | `[ ]` |
 | 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset |
 | 4 | 4.4 Image CLS fix | `[ ]` |
@@ -579,7 +579,11 @@ For a single agent working sequentially, follow this order:
 
 ## Change Log
 
-### 2026-04-16
+### 2026-04-16 (session cont.)
+- 3.5: Tags system — `tags` field on Post interface; tag chips on PostPreview with click-to-filter; client-side tag filter bar on /blog; `pages/tags/[tag].tsx` statically generated; `tags` added to RESERVED_SLUGS
+- 4.1: Shiki syntax highlighting — `@shikijs/rehype` replaces `rehypeSanitize`; dual themes (github-light/github-dark); dark mode switching via CSS variables in markdown-styles.module.css
+
+### 2026-04-16 (session start)
 - Merged CLAUDE.md into AGENTS.md (git workflow, build pipeline, formatter, important notes); CLAUDE.md now just `@AGENTS.md`
 - 2.6: Confirmed `getAllPosts` already sorts by date descending — no code change needed
 - 3.1: RSS 2.0 feed at `GET /api/rss` (`pages/api/rss.ts`); respects `blogExcludedSlugs`; RSS `<link>` tag added to `next-seo.config.ts`

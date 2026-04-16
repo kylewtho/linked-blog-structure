@@ -985,9 +985,11 @@
   background-color: rgba(110,118,129,0.4);
 }
 
-:global(.dark) .markdown-body .highlight pre,
-:global(.dark) .markdown-body pre {
-  background-color: #161b22;
+/* Shiki dark-theme switching — override CSS variables set by the dual-theme plugin */
+:global(.dark) .shiki,
+:global(.dark) .shiki span {
+  color: var(--shiki-dark) !important;
+  background-color: var(--shiki-dark-bg) !important;
 }
 
 :global(.dark) .markdown-body table th,

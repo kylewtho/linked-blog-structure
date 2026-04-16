@@ -33,7 +33,7 @@ function isExcluded(slug: string): boolean {
 }
 
 export async function getStaticProps() {
-  const posts = (await getAllPosts(['slug', 'title', 'date', 'excerpt', 'author']))
+  const posts = (await getAllPosts(['slug', 'title', 'date', 'excerpt', 'author', 'tags']))
     .filter((post) => !isExcluded(post.slug))
   return {
     props: { posts },

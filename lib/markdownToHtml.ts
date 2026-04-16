@@ -3,7 +3,7 @@ import remarkParse from 'remark-parse'
 import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import remarkRehype from 'remark-rehype'
-import rehypeSanitize from 'rehype-sanitize'
+import rehypeShiki from '@shikijs/rehype'
 import rehypeRewrite from 'rehype-rewrite';
 import rehypeStringify from 'rehype-stringify'
 import { getLinksMapping, getPostBySlug, getSlugFromHref, updateMarkdownLinks } from './api'
@@ -29,7 +29,13 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
     .use(remarkBreaks)
     .use(remarkGfm)
     .use(remarkRehype)
-    .use(rehypeSanitize)
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .use(rehypeShiki as any, {
+      themes: {
+        light: 'github-light',
+        dark: 'github-dark',
+      },
+    })
     .use(rehypeRewrite, {
       selector: 'a',
       rewrite: async (node) => rewriteLinkNodes(node, linkNodeMapping, currSlug)
