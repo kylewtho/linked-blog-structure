@@ -31,12 +31,12 @@
 
 .dark body {
   background-color: #1a1a1a;
-  color: #e4e4e7;
+  color: #e6edf3;
 }
 
 .dark .internal-link {
-  color: #a1a1aa;
-  background-color: rgb(39 39 42) !important;
+  color: #58a6ff;
+  background-color: rgb(21 34 50) !important;
 }
 
 /* Typography */

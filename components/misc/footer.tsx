@@ -54,7 +54,7 @@ function Footer() {
               <li key={link.name} className={index > 0 ? 'ml-4' : ''}>
                 <Link 
                   href={link.href} 
-                  className="flex justify-center items-center text-gray-600 dark:text-zinc-400 hover:text-gray-900 dark:hover:text-zinc-100 bg-white dark:bg-zinc-800 hover:bg-gray-100 dark:hover:bg-zinc-700 rounded-full shadow transition duration-150 ease-in-out"
+                  className="flex justify-center items-center text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 bg-white dark:bg-gray-800 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full shadow transition duration-150 ease-in-out"
                   aria-label={link.name}
                   target="_blank"
                   rel="noopener noreferrer"

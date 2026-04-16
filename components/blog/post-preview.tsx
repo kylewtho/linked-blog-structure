@@ -22,14 +22,14 @@ const PostPreview = ({
   onTagClick,
 }: Props) => {
   return (
-    <article className="flex items-center py-4 border-b border-gray-200 dark:border-zinc-700 justify-between w-full">
+    <article className="flex items-center py-4 border-b border-gray-200 dark:border-gray-700 justify-between w-full">
       <div>
         <header>
           <h2 className="h4 mb-2">
             <Link as={`/${slug}`} href="/[...slug]" className="hover:underline">{title}</Link>
           </h2>
         </header>
-        <div className="text-lg text-gray-600 dark:text-zinc-400 mb-4 text-ellipsis">
+        <div className="text-lg text-gray-600 dark:text-gray-400 mb-4 text-ellipsis">
           {excerpt.slice(0, 500)}
         </div>
         {tags && tags.length > 0 && (
@@ -38,7 +38,7 @@ const PostPreview = ({
               <button
                 key={tag}
                 onClick={() => onTagClick?.(tag)}
-                className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-zinc-800 text-gray-600 dark:text-zinc-300 hover:bg-zinc-200 dark:hover:bg-zinc-700 hover:text-zinc-800 dark:hover:text-zinc-200 transition"
+                className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition"
               >
                 #{tag}
               </button>
