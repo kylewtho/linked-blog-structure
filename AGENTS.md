@@ -47,6 +47,19 @@ No formatter is configured (no Prettier or Biome). Use VS Code's built-in format
 
 ---
 
+## SEO Policy
+
+**This blog is intentionally not indexed by search engines until further notice.**
+
+- Do not add a `sitemap.xml` route
+- Do not add `robots.txt` with `Allow` rules
+- Do not add JSON-LD structured data
+- Do not add canonical hints aimed at crawlers beyond what already exists
+
+When Kyle decides to go public, the tasks to enable SEO are: sitemap, robots.txt, JSON-LD `Article` schema on `[...slug].tsx`, and verifying `next-seo.config.ts` OG defaults. Until then, skip all SEO work.
+
+---
+
 ## Repository Map (key files only)
 
 ```
@@ -533,6 +546,107 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 
 ---
 
+## Phase 5: UX & Polish
+
+### 5.1 Mobile Nav Dark Mode
+**Status:** `[ ]`
+**Files:** `components/misc/header.tsx`
+
+The mobile nav overlay (`<Transition>` component) has hardcoded `bg-white` with no dark variant. Add `dark:bg-zinc-900` and `dark:text-gray-100` to the nav container and its link items.
+
+---
+
+### 5.2 Copy Button on Code Blocks
+**Status:** `[ ]`
+**Files:** `components/blog/post-body.tsx` *(or new `components/blog/copy-code-button.tsx`)*
+
+Add a "Copy" button that appears on hover over each code block. Since Shiki renders to static HTML, this needs a client-side `useEffect` that finds all `<pre>` elements in the post body and injects a copy button. Use the Clipboard API.
+
+---
+
+### 5.3 Table of Contents
+**Status:** `[ ]`
+**Files:** `lib/markdownToHtml.ts`, `pages/[...slug].tsx`, `components/blog/post-single.tsx`, `components/blog/toc.tsx` *(new)*
+
+Auto-generate a ToC from `h2`/`h3` headings via `rehype-slug` (adds `id` anchors) + a custom extractor that returns `{ id, text, level }[]`. Pass as prop to `PostSingle` and render in the sidebar above Backlinks on desktop, collapsed on mobile.
+
+**Steps:**
+1. `npm install rehype-slug`
+2. Add `.use(rehypeSlug)` to the unified pipeline in `markdownToHtml.ts`
+3. Extract headings from the raw markdown (regex on `## ` / `### `) to build the ToC structure
+4. Create `components/blog/toc.tsx` — sticky sidebar list of anchor links
+5. Wire into `PostSingle` sidebar
+
+---
+
+### 5.4 Related Posts
+**Status:** `[ ]`
+**Files:** `pages/[...slug].tsx`, `components/blog/related-posts.tsx` *(new)*
+
+At the bottom of each post, show up to 3 posts that share at least one tag. Sort by number of matching tags descending, then by date.
+
+**Steps:**
+1. In `getStaticProps` for `[...slug].tsx`, fetch all posts with `['slug', 'title', 'date', 'tags']`
+2. Filter: exclude current post, sort by tag overlap, take top 3
+3. Create `components/blog/related-posts.tsx` — simple card list
+4. Render below `<PostBody>` in `PostSingle`
+
+---
+
+### 5.5 Scroll Progress Bar
+**Status:** `[ ]`
+**Files:** `components/misc/scroll-progress.tsx` *(new)*, `components/misc/layout.tsx`
+
+A thin fixed bar at the very top of the viewport (above the header) that fills as the user scrolls. Pure CSS + `useEffect` scroll listener.
+
+```tsx
+// components/misc/scroll-progress.tsx
+'use client'
+export function ScrollProgress() {
+  const [progress, setProgress] = useState(0)
+  useEffect(() => {
+    const handler = () => {
+      const { scrollTop, scrollHeight, clientHeight } = document.documentElement
+      setProgress(scrollTop / (scrollHeight - clientHeight) * 100)
+    }
+    window.addEventListener('scroll', handler)
+    return () => window.removeEventListener('scroll', handler)
+  }, [])
+  return <div style={{ width: `${progress}%` }} className="fixed top-0 left-0 h-0.5 bg-gray-900 dark:bg-gray-100 z-50 transition-none" />
+}
+```
+
+Add `<ScrollProgress />` at the top of the Layout wrapper.
+
+---
+
+### 5.6 Search Debounce + Client-Side Index
+**Status:** `[ ]`
+**Files:** `components/misc/search.tsx`, `pages/api/search.ts` *(check existing)*
+
+Current search fires a fetch on every keystroke. Fix:
+1. Add a 200ms debounce to `handleChangeInput`
+2. Consider moving to a static Fuse.js index built at page load (`/api/search-index` that returns all post slugs/titles/excerpts) to avoid per-keystroke API calls
+
+---
+
+### 5.7 Font
+**Status:** `[ ]`
+**Files:** `pages/_app.tsx`, `tailwind.config.js`
+
+Current font is the system stack. Suggested: **Geist** (Vercel's font, clean and modern) or **Inter**. Use `next/font` for zero-layout-shift loading.
+
+```tsx
+// pages/_app.tsx
+import { Geist } from 'next/font/google'
+const geist = Geist({ subsets: ['latin'] })
+// wrap: <main className={geist.className}>
+```
+
+Update `tailwind.config.js` `fontFamily.sans` to reference the CSS variable.
+
+---
+
 ## Execution Order
 
 For a single agent working sequentially, follow this order:
@@ -540,11 +654,13 @@ For a single agent working sequentially, follow this order:
 ```
 1.1 → 1.2 → 1.3 → 1.4 (Kyle)
 2.1 → 2.2 → 2.3 → 2.4 → 2.5
-3.1 → 3.2 (needs Giscus setup by Kyle) → 3.3 → 3.4 → 3.5
+3.1 → 3.2 (postponed) → 3.3 → 3.4 → 3.5
 4.1 → 4.2 → 4.3 (needs OG asset from Kyle) → 4.4
+5.1 → 5.2 → 5.3 → 5.4 → 5.5 → 5.6 → 5.7
 ```
 
 **Never do 2.2 before 2.1.** Removing the redirect before the index page exists will cause a 404 at `/`.
+**SEO tasks** (sitemap, robots.txt, JSON-LD) are frozen — see SEO Policy section.
 
 ---
 
@@ -574,6 +690,13 @@ For a single agent working sequentially, follow this order:
 | 4 | 4.2 React 19 upgrade | `[x]` |
 | 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset — public/og-default.png (1200×630) |
 | 4 | 4.4 Image CLS fix | `[x]` |
+| 5 | 5.1 Mobile nav dark mode | `[ ]` |
+| 5 | 5.2 Copy button on code blocks | `[ ]` |
+| 5 | 5.3 Table of contents | `[ ]` |
+| 5 | 5.4 Related posts | `[ ]` |
+| 5 | 5.5 Scroll progress bar | `[ ]` |
+| 5 | 5.6 Search debounce + static index | `[ ]` |
+| 5 | 5.7 Font (Geist / Inter) | `[ ]` |
 
 ---
 
