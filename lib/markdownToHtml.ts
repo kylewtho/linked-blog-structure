@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import remarkRehype from 'remark-rehype'
 import rehypeShiki from '@shikijs/rehype'
+import rehypeImgSize from 'rehype-img-size'
 import rehypeRewrite from 'rehype-rewrite';
 import rehypeStringify from 'rehype-stringify'
 import { getLinksMapping, getPostBySlug, getSlugFromHref, updateMarkdownLinks } from './api'
@@ -36,6 +37,8 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
         dark: 'github-dark',
       },
     })
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .use(rehypeImgSize as any, { dir: 'public' })
     .use(rehypeRewrite, {
       selector: 'a',
       rewrite: async (node) => rewriteLinkNodes(node, linkNodeMapping, currSlug)

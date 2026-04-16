@@ -566,14 +566,14 @@ For a single agent working sequentially, follow this order:
 | 2 | 2.5 Verify Blog nav link | `[x]` |
 | 2 | 2.6 Fix: chronological order | `[x]` |
 | 3 | 3.1 RSS feed | `[x]` |
-| 3 | 3.2 Giscus comments | `[ ]` needs Kyle config |
+| 3 | 3.2 Giscus comments | `[ ]` postponed — pick up later |
 | 3 | 3.3 Dark mode | `[x]` |
 | 3 | 3.4 Reading time | `[x]` |
 | 3 | 3.5 Tags system | `[x]` |
 | 4 | 4.1 Shiki highlighting | `[x]` |
-| 4 | 4.2 React 19 upgrade | `[ ]` |
-| 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset |
-| 4 | 4.4 Image CLS fix | `[ ]` |
+| 4 | 4.2 React 19 upgrade | `[x]` |
+| 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset — public/og-default.png (1200×630) |
+| 4 | 4.4 Image CLS fix | `[x]` |
 
 ---
 
