@@ -8,9 +8,9 @@ export const BLOG_CONFIG = {
     github: "kylewtho",
   },
   navLinks: [
-    { name: "About", href: "https://kyleho.net" },
-    { name: "Blog", href: "/blog" }, // Updated to our new blog feed path
-    { name: "Projects", href: "https://kyleho.net/projects" },
+    { name: "About", href: "/about" },
+    { name: "Blog", href: "/blog" },
+    { name: "Projects", href: "/projects" },
     { name: "Resources", href: "https://kyleho.net/resources" },
     { name: "Resume", href: "https://cv.kyleho.net" },
   ],
