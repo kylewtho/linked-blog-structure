@@ -674,7 +674,7 @@ For a single agent working sequentially, follow this order:
 | 1     | 1.1 Fix config.ts handles | `[x]` |
 | 1     | 1.2 Fix footer.tsx | `[x]` |
 | 1 | 1.3 Fix post-meta.tsx author link | `[x]` |
-| 1 | 1.4 Rewrite home.md content | `[ ]` Kyle only |
+| 1 | 1.4 Rewrite home.md content | `[x]` |
 | 2 | 2.1 Create pages/index.tsx | `[x]` |
 | 2 | 2.2 Remove / redirect | `[x]` |
 | 2 | 2.3 Create pages/blog.tsx + post-list | `[x]` |
@@ -682,7 +682,7 @@ For a single agent working sequentially, follow this order:
 | 2 | 2.5 Verify Blog nav link | `[x]` |
 | 2 | 2.6 Fix: chronological order | `[x]` |
 | 3 | 3.1 RSS feed | `[x]` |
-| 3 | 3.2 Giscus comments | `[ ]` postponed — pick up later |
+| 3 | 3.2 Giscus comments | `[ ]` **postponed indefinitely** — do not action unless Kyle mentions it |
 | 3 | 3.3 Dark mode | `[x]` |
 | 3 | 3.4 Reading time | `[x]` |
 | 3 | 3.5 Tags system | `[x]` |
