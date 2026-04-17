@@ -3,6 +3,24 @@ import path from 'path'
 import matter from 'gray-matter'
 import { getFilesRecursively } from './modules/find-files-recusively.mjs'
 import removeMd from 'remove-markdown'
+import { BLOG_CONFIG } from './config'
+
+// Returns true if a slug should be hidden from the blog feed, RSS, and static paths.
+// Rules (in order):
+//   1. All-caps first segment → agent/meta file (CLAUDE, AGENTS, GEMINI, etc.)
+//   2. Matches a pattern in BLOG_CONFIG.blogExcludedSlugs
+//      - exact match: 'home'
+//      - folder wildcard: 'descriptions/*'  → any slug starting with 'descriptions/'
+//      - prefix wildcard: 'CLAUDE*'         → any slug starting with 'CLAUDE'
+export function isExcludedSlug(slug: string): boolean {
+  const firstSegment = slug.split(/[./]/)[0]
+  if (/^[A-Z]{2,}$/.test(firstSegment)) return true
+  return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
+    if (pattern.endsWith('/*')) return slug.startsWith(pattern.slice(0, -2) + '/')
+    if (pattern.endsWith('*')) return slug.startsWith(pattern.slice(0, -1))
+    return slug === pattern
+  })
+}
 
 const mdDir = path.join(process.cwd(), process.env.COMMON_MD_DIR)
 

@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllPosts } from '../../lib/api'
+import { getAllPosts, isExcludedSlug } from '../../lib/api'
 import { BLOG_CONFIG } from '../../lib/config'
 
 function escapeXml(str: string): string {
@@ -43,11 +43,7 @@ function buildRss(posts: { slug: string; title: string; date?: string; excerpt?:
 
 export default async function handler(_req: NextApiRequest, res: NextApiResponse) {
   const posts = (getAllPosts(['slug', 'title', 'date', 'excerpt']) as unknown as { slug: string; title: string; date?: string; excerpt?: string }[]).filter(
-    (post) => !BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
-      if (pattern.endsWith('/*')) return post.slug.startsWith(pattern.slice(0, -2) + '/')
-      if (pattern.endsWith('*')) return post.slug.startsWith(pattern.slice(0, -1))
-      return post.slug === pattern
-    })
+    (post) => !isExcludedSlug(post.slug)
   )
 
   const rss = buildRss(posts)

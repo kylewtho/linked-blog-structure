@@ -1,4 +1,4 @@
-import { getAllPosts } from '../lib/api'
+import { getAllPosts, isExcludedSlug } from '../lib/api'
 import Layout from '../components/misc/layout'
 import PostList from '../components/blog/post-list'
 import { NextSeo } from 'next-seo'
@@ -22,23 +22,9 @@ export default function Blog({ posts }: Props) {
   )
 }
 
-function isExcluded(slug: string): boolean {
-  return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
-    if (pattern.endsWith('/*')) {
-      const prefix = pattern.slice(0, -2)
-      return slug.startsWith(prefix + '/')
-    }
-    if (pattern.endsWith('*')) {
-      const prefix = pattern.slice(0, -1)
-      return slug.startsWith(prefix)
-    }
-    return slug === pattern
-  })
-}
-
 export async function getStaticProps() {
   const posts = (await getAllPosts(['slug', 'title', 'date', 'excerpt', 'author', 'tags']))
-    .filter((post) => !isExcluded(post.slug))
+    .filter((post) => !isExcludedSlug(post.slug))
   return {
     props: { posts },
   }
