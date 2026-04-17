@@ -1,8 +1,7 @@
 import React, { useState, useMemo } from 'react'
-import Link from 'next/link'
 import PostPreview from './post-preview'
+import PopularPosts from './popular-posts'
 import type PostType from '../../interfaces/post'
-import { BLOG_CONFIG } from '../../lib/config'
 
 const POSTS_PER_PAGE = 10
 
@@ -111,25 +110,10 @@ function PostList({ posts }: Props) {
               )}
             </div>
 
-            {/* Featured Posts Sidebar — only shown when featuredPosts is populated in lib/config.ts */}
-            {BLOG_CONFIG.featuredPosts.length > 0 && (
-              <aside className="relative mt-12 md:mt-0 md:w-64 md:ml-12 lg:ml-20 md:shrink-0">
-                <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Featured Posts</h4>
-                <ul className="-my-2">
-                  {BLOG_CONFIG.featuredPosts.map((post) => (
-                    <li className="flex py-2 border-b border-gray-200 dark:border-gray-700" key={post.slug}>
-                      <article>
-                        <h3 className="font-medium mb-1">
-                          <Link href={`/${post.slug}`} className="hover:underline">
-                            {post.title}
-                          </Link>
-                        </h3>
-                      </article>
-                    </li>
-                  ))}
-                </ul>
-              </aside>
-            )}
+            {/* Popular Posts Sidebar */}
+            <aside className="relative mt-12 md:mt-0 md:w-72 md:ml-12 lg:ml-20 md:shrink-0">
+              <PopularPosts />
+            </aside>
 
           </div>
         </div>
