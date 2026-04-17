@@ -728,6 +728,12 @@ Phases 1–4 complete. Phase 5 UX polish is next.
 
 ## Change Log
 
+### 2026-04-17 (cont.)
+- Formatter & Linter: Fully implemented **Biome**; configured `biome.json` with tailored rules (ignoring `:global`, enforcing kebab-case filenames); sanitized codebase with `npm run lint`
+- Codebase Hardening: Converted all builtin imports to `node:` protocol; standardized `<button>` elements with explicit types; optimized performance by replacing native `<img>` with Next.js `<Image />` in core components
+- Bug fixes: Resolved Next.js Image component error by adding `avatars.githubusercontent.com` to `next.config.js` remote patterns; fixed recursive effect dependencies in Header and Search components
+- Content: Updated `how-i-built-this-blog.md` in `linked-blog` with current tech stack (Biome, Shiki, Next.js 15)
+
 ### 2026-04-17
 - Layout consistency: all list/post/tag pages standardised to `lg:flex lg:justify-between` + `lg:w-72 lg:ml-20 shrink-0` sidebar; `PostList` and `TagPage` were on `md:` breakpoints
 - Sidebar: `PostSingle` shows Popular Posts when no backlinks (falls back gracefully); `/blog` and `/tags/[tag]` always show Popular Posts sidebar; `featuredPosts` in config drives content
