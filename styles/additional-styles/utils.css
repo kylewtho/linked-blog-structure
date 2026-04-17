@@ -1,3 +1,11 @@
+/* Code block backgrounds */
+.shiki {
+  background-color: #f6f8fa !important; /* light grey in light mode — matches GitHub */
+}
+.dark .shiki {
+  background-color: var(--shiki-dark-bg) !important;
+}
+
 /* Copy code button */
 .copy-code-btn {
   position: absolute;
@@ -9,14 +17,22 @@
   cursor: pointer;
   opacity: 0;
   transition: opacity 0.15s ease, background-color 0.15s ease;
-  background-color: rgba(255, 255, 255, 0.1);
-  color: #aaa;
+  background-color: rgba(0, 0, 0, 0.06);
+  color: #666;
   line-height: 0;
 }
 pre:hover .copy-code-btn {
   opacity: 1;
 }
 .copy-code-btn:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+  color: #333;
+}
+.dark .copy-code-btn {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #aaa;
+}
+.dark .copy-code-btn:hover {
   background-color: rgba(255, 255, 255, 0.2);
   color: #fff;
 }
