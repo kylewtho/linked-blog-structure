@@ -105,7 +105,7 @@ export async function getStaticProps({ params }: Params) {
 
 // Slugs handled by concrete page files — must not be generated here or Next.js
 // will throw "Conflicting paths" at build time.
-const RESERVED_SLUGS = new Set(['blog', 'tags', 'about', 'projects'])
+const RESERVED_SLUGS = new Set(['blog', 'tags', 'about', 'projects', 'resources'])
 
 export async function getStaticPaths() {
   const posts = await getAllPosts(['slug'])

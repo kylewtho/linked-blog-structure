@@ -11,7 +11,7 @@ export const BLOG_CONFIG = {
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
     { name: "Projects", href: "/projects" },
-    { name: "Resources", href: "https://kyleho.net/resources" },
+    { name: "Resources", href: "/resources" },
     { name: "Resume", href: "https://cv.kyleho.net" },
   ],
   footerLinks: [
