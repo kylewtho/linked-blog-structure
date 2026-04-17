@@ -1,25 +1,73 @@
+import { getPostBySlug, getLinksMapping } from '../lib/api'
+import { markdownToHtml } from '../lib/markdownToHtml'
 import Layout from '../components/misc/layout'
+import PostSingle from '../components/blog/post-single'
 import { NextSeo } from 'next-seo'
 import { BLOG_CONFIG } from '../lib/config'
+import type PostType from '../interfaces/post'
 
-export default function Projects() {
+type Items = {
+  title: string
+  excerpt: string
+}
+
+type Props = {
+  post: PostType
+  backlinks: { [k: string]: Items }
+}
+
+export default function Projects({ post, backlinks }: Props) {
+  const description = post.excerpt.slice(0, 155)
   return (
     <Layout>
       <NextSeo
         title="Projects"
-        description={`Projects by ${BLOG_CONFIG.author.name}.`}
+        description={description}
         canonical={`${BLOG_CONFIG.siteUrl}/projects`}
+        openGraph={{
+          title: 'Projects',
+          description,
+          type: 'website',
+        }}
       />
-      <section>
-        <div className="max-w-6xl mx-auto px-4 sm:px-6">
-          <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-            <div className="max-w-3xl mx-auto text-center">
-              <h1 className="h1 mb-4">Projects</h1>
-              <p className="text-xl text-gray-600 dark:text-gray-400">Under construction.</p>
-            </div>
-          </div>
-        </div>
-      </section>
+      <PostSingle
+        title={post.title}
+        content={post.content}
+        date={post.date}
+        author={post.author}
+        backlinks={backlinks}
+      />
     </Layout>
   )
+}
+
+export async function getStaticProps() {
+  const post = await getPostBySlug('projects', [
+    'title',
+    'excerpt',
+    'date',
+    'slug',
+    'author',
+    'content',
+  ])
+  const content = await markdownToHtml(post.content || '', 'projects')
+  const linkMapping = await getLinksMapping()
+  const backlinks = Object.keys(linkMapping).filter(
+    (k) => linkMapping[k].includes('projects') && k !== 'projects'
+  )
+  const backlinkNodes = Object.fromEntries(
+    await Promise.all(
+      backlinks.map(async (slug) => {
+        const p = await getPostBySlug(slug, ['title', 'excerpt'])
+        return [slug, p]
+      })
+    )
+  )
+
+  return {
+    props: {
+      post: { ...post, content },
+      backlinks: backlinkNodes,
+    },
+  }
 }

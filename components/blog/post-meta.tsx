@@ -26,7 +26,7 @@ const PostMeta = ({
               rel="noopener noreferrer"
             >
               <span className="absolute inset-0 -m-px" aria-hidden="true"><span className="absolute inset-0 -m-px bg-white rounded-full"></span></span>
-              <img className="relative rounded-full" src={author.picture} width="32" height="32" alt="Author" />
+              <img className="relative rounded-full" src={author.picture || author.url || BLOG_CONFIG.author.picture} width="32" height="32" alt="Author" />
             </a>
           </div>
         )}
