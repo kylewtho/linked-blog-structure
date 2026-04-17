@@ -6,7 +6,15 @@
 
 ## Project Overview
 
-Kyle's personal blog and digital garden. Built on Next.js 15 + Tailwind CSS, sourcing content from Obsidian markdown files (`common_md/`). Content is published by pushing markdown to this repo; Next.js statically generates HTML from it.
+**Repository Architecture:**
+- **`linked-blog-structure`** (this repo): The Next.js website engine. Contains the code, components, and layout logic.
+- **`linked-blog`**: The content repository. Contains the raw Obsidian markdown files in `publish/`. Pushing to this repo triggers a GitHub workflow that exports and syncs content to `linked-blog-structure`.
+
+**Development Environment & Content:**
+- **`linked-blog-structure/common_md/`**: This is a **template content folder** for the development environment. It contains demo files for various features (dates, images, code blocks, hashtags, etc.). Use this folder to verify the visual outcome of new features. When implementing a new adjustable feature, add a corresponding demo file here.
+- **`linked-blog/publish/`**: This is the **actual blog storage**. Do not modify files here unless explicitly requested. Content is synced from here to `common_md/` during the build process, but for local development, `common_md/` serves as the primary sandbox.
+
+Kyle's personal blog and digital garden. Built on Next.js 15 + Tailwind CSS.
 
 **Live URL:** `https://kyleho.net`  
 **Owner:** Kyle (GitHub: `kylewtho`, X: `@kylewtho`)  
@@ -27,7 +35,7 @@ Content flows in via GitHub Actions on every push to `linked-blog`:
 2. Output is copied into `common_md/` in this repo
 3. Vercel deploys the result
 
-`common_md/` is auto-generated — **do not edit it manually**.
+`common_md/` is auto-generated in production — **do not edit it manually in the production branch**.
 
 ---
 
@@ -40,7 +48,6 @@ No formatter is configured (no Prettier or Biome). Use VS Code's built-in format
 ## Important Notes
 
 - **Do not change the structure of this repo** — the rendering pipeline is stable and intentional
-- Content changes belong in the `linked-blog` repo, not here
 - Layout and component changes require care — they affect every page on the site
 - Run `npm install` before starting the dev server on a new machine
 - Dev server: `npm run dev`
@@ -64,7 +71,7 @@ When Kyle decides to go public, the tasks to enable SEO are: sitemap, robots.txt
 
 ```
 linked-blog-structure/
-├── common_md/            ← Obsidian content (markdown source of truth)
+├── common_md/            ← Template/Demo content for dev environment
 │   └── home.md           ← Landing page content (edited by Kyle in Obsidian)
 ├── components/
 │   ├── blog/
@@ -136,6 +143,13 @@ Do not attempt to diagnose routing errors until the cache has been cleared.
 
 ---
 
+### Security Audit (2026-04-17)
+
+- **XSS Risk**: Low. The project uses `dangerouslySetInnerHTML` in `components/blog/post-body.tsx`. Since all markdown content is authored by the owner (Kyle), the risk of malicious injection is negligible. Any future sanitization should ensure it doesn't break the rendering of custom UI components like `NotePreview` (internal link cards).
+- **Path Traversal**: Low-risk / Ignored. Core `getPostBySlug` in `lib/api.ts` resolves slugs against the `common_md` directory. In a static build environment (Vercel), there is no runtime exposure to traversal attacks.
+
+---
+
 ## Central Config (`lib/config.ts`)
 
 All site-wide values live here. Agents must read this file before hardcoding any URLs, names, or links. Components should import from here rather than using inline strings.
@@ -145,7 +159,7 @@ All site-wide values live here. Agents must read this file before hardcoding any
 ## Phase 1: Identity & Cleanup
 
 ### 1.1 Fix `lib/config.ts` — Wrong Handles
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `lib/config.ts`
 
 **Issues:**
@@ -174,7 +188,7 @@ featuredPosts: [] as { slug: string; title: string }[],
 ---
 
 ### 1.2 Fix `components/misc/footer.tsx` — Hardcoded & Broken Links
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `components/misc/footer.tsx`  
 **Depends on:** 1.1
 
@@ -197,7 +211,7 @@ featuredPosts: [] as { slug: string; title: string }[],
 ---
 
 ### 1.3 Fix `components/blog/post-meta.tsx` — Dead Author Links
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `components/blog/post-meta.tsx`  
 **Depends on:** 1.1
 
@@ -215,7 +229,7 @@ Set `target="_blank" rel="noopener noreferrer"` on the link.
 ---
 
 ### 1.4 Update `common_md/home.md` — Replace Template Content
-**Status:** `[ ]` *(Kyle does this manually in Obsidian)*  
+**Status:** `[x]` *(Kyle does this manually in Obsidian)*  
 **Files:** `common_md/home.md`
 
 **Issue:** `home.md` currently contains the original linked-blog-starter template documentation. This file is Kyle's personal landing page.
@@ -241,7 +255,7 @@ excerpt: Software engineer, UNSW Master of IT (Cyber Security). Writing about te
 ## Phase 2: Architecture
 
 ### 2.1 Create `pages/index.tsx` — Custom Landing Page
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `pages/index.tsx` *(new file)*  
 **Depends on:** 1.4 (content), but can be built with placeholder content
 
@@ -303,7 +317,7 @@ export async function getStaticProps() {
 ---
 
 ### 2.2 Remove `/` → `/home` Redirect
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `next.config.js`  
 **Depends on:** 2.1 (must exist first — do not do this before index.tsx is in place)
 
@@ -323,7 +337,7 @@ Or if other config is needed in future, keep the export but without redirects.
 ---
 
 ### 2.3 Create `pages/blog.tsx` — Blog Feed
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `pages/blog.tsx` *(new file)*, `components/blog/post-list.tsx` *(new file)*  
 **Depends on:** 1.1 (for `BLOG_CONFIG.featuredPosts`)
 
@@ -351,7 +365,7 @@ SEO: `<NextSeo title="Blog" description="All posts and notes by Kyle." canonical
 ---
 
 ### 2.4 Add Canonical URLs to `[...slug].tsx`
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `pages/[...slug].tsx`
 
 **Issue:** `NextSeo` on line 34 has no `canonical` prop, which can cause duplicate-content issues for posts accessible at multiple paths.
@@ -367,7 +381,7 @@ Import `BLOG_CONFIG` from `../lib/config`.
 ---
 
 ### 2.5 Update `lib/config.ts` Nav Link for Blog
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `lib/config.ts`
 
 **Check:** The `navLinks` array already has `{ name: "Blog", href: "/blog" }`. Verify this is present and the href is `/blog` (not `/home` or a full URL).
@@ -379,7 +393,7 @@ Import `BLOG_CONFIG` from `../lib/config`.
 ## Phase 3: Feature Enhancement
 
 ### 3.1 RSS/Atom Feed
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `pages/api/rss.ts` *(new file)*
 
 **Goal:** Expose a machine-readable RSS 2.0 feed at `/api/rss` (and optionally `/feed.xml` via a redirect).
@@ -431,7 +445,7 @@ categoryId="???"
 ---
 
 ### 3.3 Dark Mode
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `tailwind.config.js`, `components/misc/header.tsx`, `styles/index.css`
 
 **Goal:** Add a dark mode toggle. Use Tailwind's `darkMode: 'class'` strategy with a `localStorage`-persisted preference.
@@ -450,7 +464,7 @@ categoryId="???"
 ---
 
 ### 3.4 Reading Time Estimate
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `lib/readingTime.ts` *(new utility)*, `components/blog/post-meta.tsx`, `pages/[...slug].tsx`
 
 **Goal:** Show estimated reading time (e.g. "5 min read") next to the post date.
@@ -472,7 +486,7 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 ---
 
 ### 3.5 Tags / Hashtags
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `pages/blog.tsx`, `pages/tags/[tag].tsx` *(new)*, `components/blog/post-preview.tsx`, `lib/api.ts`
 
 **Goal:** Posts can declare `tags: [cyber, notes, tools]` in their frontmatter. The blog feed supports filtering by tag.
@@ -490,7 +504,7 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 ## Phase 4: Technical Polish
 
 ### 4.1 Shiki Syntax Highlighting
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `lib/markdownToHtml.ts`, `package.json`
 
 **Goal:** Replace basic CSS code highlighting with Shiki for accurate, theme-aware syntax highlighting. Important for a tech/cyber blog.
@@ -506,7 +520,7 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 ---
 
 ### 4.2 React 19 Migration
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `package.json`, potentially `components/**`
 
 **Note:** Next.js 15.5.9 is already installed. React 18.2 is in use. React 19 is supported by Next.js 15.
@@ -537,7 +551,7 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 ---
 
 ### 4.4 Image Optimisation (CLS)
-**Status:** `[ ]`  
+**Status:** `[x]`  
 **Files:** `components/blog/post-body.tsx`, `lib/markdownToHtml.ts`
 
 **Goal:** Reduce Cumulative Layout Shift from inline markdown images by using Next.js `<Image>` or adding explicit `width`/`height` attributes via a rehype plugin.
@@ -549,7 +563,7 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 ## Phase 5: UX & Polish
 
 ### 5.1 Mobile Nav Dark Mode
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files:** `components/misc/header.tsx`
 
 The mobile nav overlay (`<Transition>` component) has hardcoded `bg-white` with no dark variant. Add `dark:bg-zinc-900` and `dark:text-gray-100` to the nav container and its link items.
@@ -557,7 +571,7 @@ The mobile nav overlay (`<Transition>` component) has hardcoded `bg-white` with 
 ---
 
 ### 5.2 Copy Button on Code Blocks
-**Status:** `[ ]`
+**Status:** `[x]`
 **Files:** `components/blog/post-body.tsx` *(or new `components/blog/copy-code-button.tsx`)*
 
 Add a "Copy" button that appears on hover over each code block. Since Shiki renders to static HTML, this needs a client-side `useEffect` that finds all `<pre>` elements in the post body and injects a copy button. Use the Clipboard API.
@@ -652,6 +666,8 @@ Update `tailwind.config.js` `fontFamily.sans` to reference the CSS variable.
 For a single agent working sequentially, follow this order:
 
 ```
+Always start from ## Know fix list, which is a manual list of issues Kyle has found through testing. These are high priority and should be done first.
+When there is existing know fix items, add new work to the most earliest possible phase in the plan. Remark in the known fix list as you recognised. Then continue fixing.
 1.1 → 1.2 → 1.3 → 1.4 (Kyle)
 2.1 → 2.2 → 2.3 → 2.4 → 2.5
 3.1 → 3.2 (postponed) → 3.3 → 3.4 → 3.5
@@ -665,14 +681,17 @@ For a single agent working sequentially, follow this order:
 ---
 
 ## Known fix list (manual update by Kyle through testing, please add this to the plan)
-2.6 Fix: Blog posts in \blog should be shown in chronological order (newest at the top)
+- [ ] home.md has a different width than other pages. (sidebar logic must be preserved).
+- [ ] Wikilink & Image fallback: Some `[[wikilinks]]` and `![[images]]` are not being converted by the export process.
+- [ ] markdown files in 'home', 'faq', 'privacy-policy', 'projects', 'resources', 'terms-and-conditions', 'descriptions/*', 'placeholders/*', 'tutorials/*' should ONLY be excluded from the blog feed, but still be accessible at their respective paths. Verify this is the case and fix any issues.
+- [ ] home.md triggers GET /home 404. Fix
 
 ## Current Status
 
 | Phase | Task | Status |
 |-------|------|--------|
-| 1     | 1.1 Fix config.ts handles | `[x]` |
-| 1     | 1.2 Fix footer.tsx | `[x]` |
+| 1 | 1.1 Fix config.ts handles | `[x]` |
+| 1 | 1.2 Fix footer.tsx | `[x]` |
 | 1 | 1.3 Fix post-meta.tsx author link | `[x]` |
 | 1 | 1.4 Rewrite home.md content | `[x]` |
 | 2 | 2.1 Create pages/index.tsx | `[x]` |
@@ -691,7 +710,7 @@ For a single agent working sequentially, follow this order:
 | 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset — public/og-default.png (1200×630) |
 | 4 | 4.4 Image CLS fix | `[x]` |
 | 5 | 5.1 Mobile nav dark mode | `[x]` |
-| 5 | 5.2 Copy button on code blocks | `[ ]` |
+| 5 | 5.2 Copy button on code blocks | `[x]` |
 | 5 | 5.3 Table of contents | `[ ]` |
 | 5 | 5.4 Related posts | `[ ]` |
 | 5 | 5.5 Scroll progress bar | `[ ]` |
@@ -701,12 +720,16 @@ For a single agent working sequentially, follow this order:
 | 6 | 6.2 /projects page (placeholder → design TBD) | `[x]` renders projects.md |
 | 6 | 6.3 /resources page | `[x]` |
 | 6 | 6.4 Resume nav link (stays external → /about eventually) | `[ ]` deferred |
+| 7 | 7.1 Bug Fix: Wikilink & Image fallback in api.ts | `[ ]` |
 
 ---
 
 ## Change Log
 
 ### 2026-04-17
+- Reverted: Sidebar standardization in `PostSingle.tsx` was reverted due to disruption of backlink logic.
+- Security Audit: Documented path traversal status as low-risk/ignored in static generation environment.
+- Documentation: Added "Development Environment & Content" section to AGENTS.md clarifying the role of `common_md/` as a template folder.
 - Security fixes: search API guard for missing `q` param; post-preview API path traversal mitigation via `path.basename()` on slug segments; added `return` before 405 responses
 - 5.1: Mobile nav dark mode complete — hamburger button restored (was missing); dropdown bg `dark:bg-zinc-900`; dark text on nav links
 - Mobile nav UX overhaul: search input at top of dropdown (opens search overlay on focus); dark mode as icon+text button with separator; desktop-only search icon + dark mode icon in header bar
