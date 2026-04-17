@@ -50,15 +50,12 @@ function PostSingle({
 
                   {/* Article meta */}
                   {(author || date) && (
-                    <>
-                      <PostMeta author={author} date={date} readingTime={readingTime}/>
-                      <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
-                    </>
+                    <PostMeta author={author} date={date} readingTime={readingTime}/>
                   )}
 
                   {/* Tags */}
                   {tags && tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mb-6">
+                    <div className="flex flex-wrap gap-2 mt-3 mb-3">
                       {tags.map((tag) => (
                         <Link
                           key={tag}
@@ -69,6 +66,10 @@ function PostSingle({
                         </Link>
                       ))}
                     </div>
+                  )}
+
+                  {(author || date || (tags && tags.length > 0)) && (
+                    <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
                   )}
 
                   {/* Article body */}
