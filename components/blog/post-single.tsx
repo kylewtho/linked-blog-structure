@@ -4,6 +4,7 @@ import Author from '../../interfaces/author';
 import Backlinks from '../misc/backlinks';
 import PostBody from './post-body';
 import PostMeta from './post-meta';
+import PopularPosts from './popular-posts';
 
 type Props = {
   title: string,
@@ -33,7 +34,7 @@ function PostSingle({
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-          <div className={hasBacklinks ? "max-w-3xl mx-auto lg:max-w-none" : "max-w-3xl mx-auto"}>
+          <div className="max-w-3xl mx-auto lg:max-w-none">
 
             <article>
 
@@ -44,7 +45,7 @@ function PostSingle({
               </header>
 
               {/* Article content */}
-              <div className={hasBacklinks ? "lg:flex lg:justify-between" : ""} data-sticky-container>
+              <div className="lg:flex lg:justify-between" data-sticky-container>
 
                 {/* Main content */}
                 <div>
@@ -79,19 +80,19 @@ function PostSingle({
                 </div>
 
                 {/* Sidebar */}
-                {hasBacklinks && (
-                  <>
-                    <hr className="my-10 border border-dashed lg:hidden"/>
-                    <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
-                      <div>
-                        <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>
-                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-                          <Backlinks backlinks={backlinks} />
-                        </div>
+                <hr className="my-10 border border-dashed lg:hidden"/>
+                <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
+                  {hasBacklinks ? (
+                    <div>
+                      <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>
+                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                        <Backlinks backlinks={backlinks} />
                       </div>
-                    </aside>
-                  </>
-                )}
+                    </div>
+                  ) : (
+                    <PopularPosts />
+                  )}
+                </aside>
 
               </div>
 

@@ -19,7 +19,9 @@ export const BLOG_CONFIG = {
     { name: "Mastodon", href: "https://infosec.exchange/@kriegerkh" },
     { name: "LinkedIn", href: "https://linkedin.com/in/kylewtho" },
   ],
-  featuredPosts: [] as { slug: string; title: string }[],
+  featuredPosts: [
+    { slug: 'articles/self-trust', title: 'Self-Trust' },
+  ] as { slug: string; title: string }[],
   // Slugs excluded from the /blog feed.
   // - Exact slug:    'home'            → excludes home.md only
   // - Folder prefix: 'descriptions/*'  → excludes all files inside descriptions/
