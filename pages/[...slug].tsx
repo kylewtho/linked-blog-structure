@@ -109,11 +109,19 @@ export async function getStaticProps({ params }: Params) {
 // will throw "Conflicting paths" at build time.
 const RESERVED_SLUGS = new Set(['blog', 'tags', 'about', 'projects', 'resources'])
 
+function isAgentFile(slug: string): boolean {
+  return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
+    if (pattern.endsWith('/*')) return slug.startsWith(pattern.slice(0, -2) + '/')
+    if (pattern.endsWith('*')) return slug.startsWith(pattern.slice(0, -1))
+    return slug === pattern
+  })
+}
+
 export async function getStaticPaths() {
   const posts = await getAllPosts(['slug'])
   return {
     paths: posts
-      .filter((post) => !RESERVED_SLUGS.has(post.slug))
+      .filter((post) => !RESERVED_SLUGS.has(post.slug) && !isAgentFile(post.slug))
       .map((post) => {
         return {
           params: {

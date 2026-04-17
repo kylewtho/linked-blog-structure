@@ -34,6 +34,7 @@ export const BLOG_CONFIG = {
     'placeholders/*',
     'tutorials/*',
     'CLAUDE*',
+    'AGENTS*',
   ],
   siteUrl: "https://kyleho.net",
 }
