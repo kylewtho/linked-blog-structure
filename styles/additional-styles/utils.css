@@ -1,3 +1,30 @@
+/* Copy code button */
+.copy-code-btn {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  padding: 0.3rem;
+  border-radius: 4px;
+  border: none;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.15s ease, background-color 0.15s ease;
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #aaa;
+  line-height: 0;
+}
+pre:hover .copy-code-btn {
+  opacity: 1;
+}
+.copy-code-btn:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+  color: #fff;
+}
+.copy-code-btn.copied {
+  color: #4ade80; /* green-400 */
+  opacity: 1;
+}
+
 .internal-link-container > .note-preview {
   @apply hidden absolute w-[350px] left-0 z-50;
   text-align: left !important;
