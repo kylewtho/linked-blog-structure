@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
 import { getPostBySlug, getAllPosts, getLinksMapping } from '../lib/api'
-import { markdownToHtml } from '../lib/markdownToHtml'
+import { markdownToHtml, extractToc, TocItem } from '../lib/markdownToHtml'
 import type PostType from '../interfaces/post'
 import path from 'path'
 import PostSingle from '../components/blog/post-single'
@@ -20,9 +20,10 @@ type Props = {
   slug: string
   backlinks: { [k: string]: Items }
   readingTime: string
+  toc: TocItem[]
 }
 
-export default function Post({ post, backlinks, readingTime }: Props) {
+export default function Post({ post, backlinks, readingTime, toc }: Props) {
   const router = useRouter()
   const description = post.excerpt.slice(0, 155)
   if (!router.isFallback && !post?.slug) {
@@ -58,6 +59,7 @@ export default function Post({ post, backlinks, readingTime }: Props) {
             backlinks={backlinks}
             readingTime={readingTime}
             tags={post.tags}
+            toc={toc}
           />
         </Layout>
       )}
@@ -85,6 +87,7 @@ export async function getStaticProps({ params }: Params) {
     'tags',
   ])
   const readingTime = getReadingTime(post.content || '')
+  const toc = extractToc(post.content || '')
   const content = await markdownToHtml(post.content || '', slug)
   const linkMapping = await getLinksMapping()
   const backlinks = Object.keys(linkMapping).filter(k => linkMapping[k].includes(post.slug) && k !== post.slug)
@@ -101,6 +104,7 @@ export async function getStaticProps({ params }: Params) {
       },
       backlinks: backlinkNodes,
       readingTime,
+      toc,
     },
   }
 }

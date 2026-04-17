@@ -5,6 +5,8 @@ import Backlinks from '../misc/backlinks';
 import PostBody from './post-body';
 import PostMeta from './post-meta';
 import PopularPosts from './popular-posts';
+import Toc from './toc';
+import { TocItem } from '../../lib/markdownToHtml';
 
 type Props = {
   title: string,
@@ -13,6 +15,7 @@ type Props = {
   author?: Author,
   readingTime?: string,
   tags?: string[],
+  toc?: TocItem[],
   backlinks: { [k: string]: {
       title: string,
       excerpt: string,
@@ -27,6 +30,7 @@ function PostSingle({
   content,
   readingTime,
   tags,
+  toc,
   backlinks
 }: Props) {
   const hasBacklinks = Object.keys(backlinks).length > 0
@@ -48,7 +52,7 @@ function PostSingle({
               <div className="lg:flex lg:justify-between" data-sticky-container>
 
                 {/* Main content */}
-                <div>
+                <div className="min-w-0 grow">
 
                   {/* Article meta */}
                   {(author || date) && (
@@ -82,6 +86,7 @@ function PostSingle({
                 {/* Sidebar */}
                 <hr className="my-10 border border-dashed lg:hidden"/>
                 <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
+                  {toc && toc.length > 0 && <Toc items={toc} />}
                   {hasBacklinks ? (
                     <div>
                       <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>

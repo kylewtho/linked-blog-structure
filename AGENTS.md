@@ -688,61 +688,37 @@ When there is existing know fix items, add new work to the most earliest possibl
 
 ## Current Status
 
+Phases 1–4 complete. Phase 5 UX polish is next.
+
 | Phase | Task | Status |
 |-------|------|--------|
-| 1 | 1.1 Fix config.ts handles | `[x]` |
-| 1 | 1.2 Fix footer.tsx | `[x]` |
-| 1 | 1.3 Fix post-meta.tsx author link | `[x]` |
-| 1 | 1.4 Rewrite home.md content | `[x]` |
-| 2 | 2.1 Create pages/index.tsx | `[x]` |
-| 2 | 2.2 Remove / redirect | `[x]` |
-| 2 | 2.3 Create pages/blog.tsx + post-list | `[x]` |
-| 2 | 2.4 Add canonical to [...slug].tsx | `[x]` |
-| 2 | 2.5 Verify Blog nav link | `[x]` |
-| 2 | 2.6 Fix: chronological order | `[x]` |
-| 3 | 3.1 RSS feed | `[x]` |
-| 3 | 3.2 Giscus comments | `[ ]` **postponed indefinitely** — do not action unless Kyle mentions it |
-| 3 | 3.3 Dark mode | `[x]` |
-| 3 | 3.4 Reading time | `[x]` |
-| 3 | 3.5 Tags system | `[x]` |
-| 4 | 4.1 Shiki highlighting | `[x]` |
-| 4 | 4.2 React 19 upgrade | `[x]` |
-| 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset — public/og-default.png (1200×630) |
-| 4 | 4.4 Image CLS fix | `[x]` |
-| 5 | 5.1 Mobile nav dark mode | `[x]` |
-| 5 | 5.2 Copy button on code blocks | `[x]` |
+| 1–4 | All identity, architecture, features, polish | `[x]` |
 | 5 | 5.3 Table of contents | `[ ]` |
 | 5 | 5.4 Related posts | `[ ]` |
 | 5 | 5.5 Scroll progress bar | `[ ]` |
 | 5 | 5.6 Search debounce + static index | `[ ]` |
 | 5 | 5.7 Font (Geist / Inter) | `[ ]` |
-| 6 | 6.1 /about page (placeholder → about.md) | `[x]` placeholder live, full impl later |
-| 6 | 6.2 /projects page (placeholder → design TBD) | `[x]` renders projects.md |
-| 6 | 6.3 /resources page | `[x]` |
-| 6 | 6.4 Resume nav link (stays external → /about eventually) | `[ ]` deferred |
-| 7 | 7.1 Bug Fix: Wikilink & Image fallback in api.ts | `[ ]` |
+| 6 | 6.4 Resume nav link (deferred) | `[ ]` |
+| — | 4.3 OG image — `public/og-default.png` added by Kyle | `[x]` |
+| — | 3.2 Giscus comments | postponed — do not action |
+
+### Known Architecture Rules
+- `RESERVED_SLUGS` in `[...slug].tsx` — update when adding new concrete pages
+- `blogExcludedSlugs` in `lib/config.ts` — blog feed exclusion only; does NOT block path generation
+- `featuredPosts` in `lib/config.ts` — populates Popular Posts sidebar on all pages without backlinks
+- All list/tag/post pages use `lg:flex lg:justify-between` + `lg:w-72 lg:ml-20 shrink-0` sidebar
+- YAML frontmatter titles containing `:` must be quoted e.g. `title: "Foo: Bar"`
+- Always `rm -rf .next` before restarting dev after structural changes
 
 ---
 
 ## Change Log
 
 ### 2026-04-17
-- Bug fix: `[[wikilink]]` and `![[image]]` Obsidian syntax now converted in `lib/api.ts` `updateMarkdownLinks` (prepended before standard link processing)
-- Bug fix: `/home` → `/` permanent redirect added to `next.config.js` (home.md was excluded from `getStaticPaths`, causing 404 on wikilink-generated `/home` hrefs)
-- Bug fix: `isExcludedSlug` removed from `[...slug].tsx` `getStaticPaths` filter — excluded slugs (faq, tutorials/*, etc.) are now accessible at their paths; blog feed exclusion is unaffected
-- Bug fix: `PostSingle` width — when no backlinks, outer div uses `max-w-3xl mx-auto` (no sidebar) matching header width; flex+sidebar layout preserved when backlinks exist
-- Reverted: Sidebar standardization in `PostSingle.tsx` was reverted due to disruption of backlink logic.
-- Security Audit: Documented path traversal status as low-risk/ignored in static generation environment.
-- Documentation: Added "Development Environment & Content" section to AGENTS.md clarifying the role of `common_md/` as a template folder.
-- Security fixes: search API guard for missing `q` param; post-preview API path traversal mitigation via `path.basename()` on slug segments; added `return` before 405 responses
-- 5.1: Mobile nav dark mode complete — hamburger button restored (was missing); dropdown bg `dark:bg-zinc-900`; dark text on nav links
-- Mobile nav UX overhaul: search input at top of dropdown (opens search overlay on focus); dark mode as icon+text button with separator; desktop-only search icon + dark mode icon in header bar
-- Phase 6 pages: `/about` (renders home.md, swap to about.md when ready), `/projects` (renders projects.md), `/resources` (renders resources.md); all added to RESERVED_SLUGS and blogExcludedSlugs
-- navLinks updated to internal routes: About → /about, Projects → /projects, Resources → /resources
-- Author avatar fix: `Author` interface now accepts `url` field (frontmatter uses `url`, not `picture`); post-meta falls back `picture || url || BLOG_CONFIG.author.picture`
-- Tags on individual post pages: rendered after date, chips link to `/tags/[tag]`; `[...slug].tsx` fetches `tags` field
-- Backlinks key prop fix; hr divider moved to after tags, hidden on desktop (lg:hidden)
-- Dark mode zinc fixes: note-preview cards + footer social icons use `dark:bg-zinc-800/zinc-700`
+- Layout consistency: all list/post/tag pages standardised to `lg:flex lg:justify-between` + `lg:w-72 lg:ml-20 shrink-0` sidebar; `PostList` and `TagPage` were on `md:` breakpoints
+- Sidebar: `PostSingle` shows Popular Posts when no backlinks (falls back gracefully); `/blog` and `/tags/[tag]` always show Popular Posts sidebar; `featuredPosts` in config drives content
+- Bug fixes: Obsidian `[[wikilink]]`/`![[image]]` conversion in `updateMarkdownLinks`; `/home` → `/` redirect; `isExcludedSlug` removed from `getStaticPaths` (blog-feed-only concern); `parseFileToObj` hardened with try/catch for malformed YAML
+- Phase 6 + security: `/about`, `/projects`, `/resources` pages live; mobile nav dark mode; author avatar `url` field; security fixes on search/post-preview APIs
 
 ### 2026-04-16 (session cont.)
 - 3.5: Tags system — `tags` field on Post interface; tag chips on PostPreview with click-to-filter; client-side tag filter bar on /blog; `pages/tags/[tag].tsx` statically generated; `tags` added to RESERVED_SLUGS

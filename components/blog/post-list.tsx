@@ -74,7 +74,7 @@ function PostList({ posts }: Props) {
             </div>
           )}
 
-          <div className="md:flex md:justify-between">
+          <div className="lg:flex lg:justify-between">
 
             {/* Articles */}
             <div className="md:grow -mt-4">
@@ -111,7 +111,7 @@ function PostList({ posts }: Props) {
             </div>
 
             {/* Popular Posts Sidebar */}
-            <aside className="relative mt-12 md:mt-0 md:w-72 md:ml-12 lg:ml-20 md:shrink-0">
+            <aside className="relative mt-12 lg:mt-0 lg:w-72 lg:ml-20 shrink-0">
               <PopularPosts />
             </aside>
 

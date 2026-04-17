@@ -59,9 +59,14 @@ function Search({ visible, setVisible }) {
   }, [router.asPath])
 
 
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   async function handleChangeInput(e) {
-    const res = await fetch(`/api/search?q=${e.target.value}`)
-    setSearchResults(await res.json());
+    const q = e.target.value
+    if (debounceRef.current) clearTimeout(debounceRef.current)
+    debounceRef.current = setTimeout(async () => {
+      const res = await fetch(`/api/search?q=${encodeURIComponent(q)}`)
+      setSearchResults(await res.json())
+    }, 200)
   }
 
   return (

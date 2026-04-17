@@ -4,6 +4,7 @@ import remarkGfm from 'remark-gfm'
 import remarkBreaks from 'remark-breaks'
 import remarkRehype from 'remark-rehype'
 import rehypeShiki from '@shikijs/rehype'
+import rehypeSlug from 'rehype-slug'
 import rehypeImgSize from 'rehype-img-size'
 import rehypeRewrite from 'rehype-rewrite';
 import rehypeStringify from 'rehype-stringify'
@@ -38,6 +39,7 @@ export async function markdownToHtml(markdown: string, currSlug: string) {
       },
     })
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    .use(rehypeSlug)
     .use(rehypeImgSize as any, { dir: 'public' })
     .use(rehypeRewrite, {
       selector: 'a',
@@ -53,6 +55,22 @@ export function createNoteNode(title: string, excerpt: string) {
   const htmlStr = renderToStaticMarkup(NotePreview({ title, content: excerpt }))
   const noteNode = fromHtml(htmlStr, { fragment: true }) as Root;
   return noteNode.children[0] as Element;
+}
+
+export type TocItem = { id: string; text: string; level: 2 | 3 }
+
+export function extractToc(markdown: string): TocItem[] {
+  const lines = markdown.split('\n')
+  const items: TocItem[] = []
+  for (const line of lines) {
+    const m = line.match(/^(#{2,3})\s+(.+)/)
+    if (!m) continue
+    const level = m[1].length as 2 | 3
+    const text = m[2].replace(/\*\*|__|`/g, '').trim()
+    const id = text.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-').replace(/-+/g, '-')
+    items.push({ id, text, level })
+  }
+  return items
 }
 
 function rewriteLinkNodes (node, linkNodeMapping: Map<string, any>, currSlug) {

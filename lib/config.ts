@@ -21,6 +21,7 @@ export const BLOG_CONFIG = {
   ],
   featuredPosts: [
     { slug: 'articles/self-trust', title: 'Self-Trust' },
+    { slug: 'articles/resources', title: 'Resources' },
   ] as { slug: string; title: string }[],
   // Slugs excluded from the /blog feed.
   // - Exact slug:    'home'            → excludes home.md only

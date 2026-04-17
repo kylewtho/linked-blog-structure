@@ -1,6 +1,7 @@
 import { getAllPosts } from '../../lib/api'
 import Layout from '../../components/misc/layout'
 import PostPreview from '../../components/blog/post-preview'
+import PopularPosts from '../../components/blog/popular-posts'
 import { NextSeo } from 'next-seo'
 import { BLOG_CONFIG } from '../../lib/config'
 import Link from 'next/link'
@@ -27,18 +28,23 @@ export default function TagPage({ tag, posts }: Props) {
               <h1 className="h1 mb-2">#{tag}</h1>
               <p className="text-gray-500 dark:text-gray-400">{posts.length} post{posts.length !== 1 ? 's' : ''}</p>
             </div>
-            <div className="max-w-3xl">
-              {posts.map((post) => (
-                <PostPreview
-                  key={post.slug}
-                  title={post.title}
-                  date={post.date}
-                  excerpt={post.excerpt}
-                  author={post.author}
-                  slug={post.slug}
-                  tags={post.tags}
-                />
-              ))}
+            <div className="lg:flex lg:justify-between">
+              <div className="lg:grow">
+                {posts.map((post) => (
+                  <PostPreview
+                    key={post.slug}
+                    title={post.title}
+                    date={post.date}
+                    excerpt={post.excerpt}
+                    author={post.author}
+                    slug={post.slug}
+                    tags={post.tags}
+                  />
+                ))}
+              </div>
+              <aside className="relative mt-12 lg:mt-0 lg:w-72 lg:ml-20 shrink-0">
+                <PopularPosts />
+              </aside>
             </div>
           </div>
         </div>
