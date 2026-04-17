@@ -11,6 +11,9 @@ This blog is built with **Next.js 15**, **Tailwind CSS**, and **Markdown**. It s
 
 I've created several template posts to help you understand how this blog works and what it can do:
 
+- **[[meta-garden]]**: A deep dive into the technology and philosophy of this blog.
+- **[[long-post]]**: A long-form exploration of Digital Gardening (tests scrolling/layout).
+- **[[tutorials/markdown-mastery|Markdown Mastery]]**: Advanced techniques for your digital garden.
 - **[Markdown Style Guide](markdown-features.md)**: See how code blocks, quotes, and formatting look.
 - **[Projects Showcase](projects.md)**: A portfolio of my work and experiments.
 - **[Curated Resources](resources.md)**: A collection of tools and libraries.
