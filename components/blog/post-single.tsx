@@ -5,7 +5,7 @@ import PostBody from "./post-body";
 import PostMeta from "./post-meta";
 import PopularPosts from "./popular-posts";
 import Toc from "./toc";
-import type { TocItem } from "../../lib/markdownToHtml";
+import type { TocItem } from "../../lib/markdown-to-html";
 
 type Props = {
   title: string;

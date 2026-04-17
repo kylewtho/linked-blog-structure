@@ -94,7 +94,7 @@ linked-blog-structure/
 ├── lib/
 │   ├── config.ts         ← Central config (BLOG_CONFIG) — single source of truth for site metadata
 │   ├── api.ts            ← getAllPosts(), getPostBySlug(), getLinksMapping()
-│   └── markdownToHtml.ts ← Markdown → HTML pipeline
+│   └── markdown-to-html.ts ← Markdown → HTML pipeline
 ├── pages/
 │   ├── _app.tsx          ← App wrapper, DefaultSeo
 │   ├── [...slug].tsx     ← All post/note pages
@@ -272,7 +272,7 @@ excerpt: Software engineer, UNSW Master of IT (Cyber Security). Writing about te
 ```tsx
 // pages/index.tsx
 import { getPostBySlug } from '../lib/api'
-import { markdownToHtml } from '../lib/markdownToHtml'
+import { markdownToHtml } from '../lib/markdown-to-html'
 import Layout from '../components/misc/layout'
 import PostBody from '../components/blog/post-body'
 import { NextSeo } from 'next-seo'
@@ -471,13 +471,13 @@ categoryId="???"
 
 ### 3.4 Reading Time Estimate
 **Status:** `[x]`  
-**Files:** `lib/readingTime.ts` *(new utility)*, `components/blog/post-meta.tsx`, `pages/[...slug].tsx`
+**Files:** `lib/reading-time.ts` *(new utility)*, `components/blog/post-meta.tsx`, `pages/[...slug].tsx`
 
 **Goal:** Show estimated reading time (e.g. "5 min read") next to the post date.
 
 **Implementation:**
 ```ts
-// lib/readingTime.ts
+// lib/reading-time.ts
 export function getReadingTime(content: string): string {
   const words = content.trim().split(/\s+/).length
   const minutes = Math.ceil(words / 200)
@@ -518,13 +518,13 @@ The blog feed supports filtering by tag. `gray-matter` parses both inline `[a, b
 
 ### 4.1 Shiki Syntax Highlighting
 **Status:** `[x]`  
-**Files:** `lib/markdownToHtml.ts`, `package.json`
+**Files:** `lib/markdown-to-html.ts`, `package.json`
 
 **Goal:** Replace basic CSS code highlighting with Shiki for accurate, theme-aware syntax highlighting. Important for a tech/cyber blog.
 
 **Steps:**
 1. `npm install shiki`
-2. In `lib/markdownToHtml.ts`, integrate Shiki as a rehype plugin (use `rehype-shiki` or `@shikijs/rehype`)
+2. In `lib/markdown-to-html.ts`, integrate Shiki as a rehype plugin (use `rehype-shiki` or `@shikijs/rehype`)
 3. Choose a theme: `github-dark` for dark mode, `github-light` for light (or use Shiki's dual-theme support)
 4. Remove any existing `prism` or basic CSS highlighting from `markdown-styles.module.css`
 
@@ -565,7 +565,7 @@ The blog feed supports filtering by tag. `gray-matter` parses both inline `[a, b
 
 ### 4.4 Image Optimisation (CLS)
 **Status:** `[x]`  
-**Files:** `components/blog/post-body.tsx`, `lib/markdownToHtml.ts`
+**Files:** `components/blog/post-body.tsx`, `lib/markdown-to-html.ts`
 
 **Goal:** Reduce Cumulative Layout Shift from inline markdown images by using Next.js `<Image>` or adding explicit `width`/`height` attributes via a rehype plugin.
 
@@ -593,13 +593,13 @@ Add a "Copy" button that appears on hover over each code block. Since Shiki rend
 
 ### 5.3 Table of Contents
 **Status:** `[ ]`
-**Files:** `lib/markdownToHtml.ts`, `pages/[...slug].tsx`, `components/blog/post-single.tsx`, `components/blog/toc.tsx` *(new)*
+**Files:** `lib/markdown-to-html.ts`, `pages/[...slug].tsx`, `components/blog/post-single.tsx`, `components/blog/toc.tsx` *(new)*
 
 Auto-generate a ToC from `h2`/`h3` headings via `rehype-slug` (adds `id` anchors) + a custom extractor that returns `{ id, text, level }[]`. Pass as prop to `PostSingle` and render in the sidebar above Backlinks on desktop, collapsed on mobile.
 
 **Steps:**
 1. `npm install rehype-slug`
-2. Add `.use(rehypeSlug)` to the unified pipeline in `markdownToHtml.ts`
+2. Add `.use(rehypeSlug)` to the unified pipeline in `markdown-to-html.ts`
 3. Extract headings from the raw markdown (regex on `## ` / `### `) to build the ToC structure
 4. Create `components/blog/toc.tsx` — sticky sidebar list of anchor links
 5. Wire into `PostSingle` sidebar
@@ -784,7 +784,7 @@ Phases 1–4 complete. Phase 5 UX polish is next.
 - Merged CLAUDE.md into AGENTS.md (git workflow, build pipeline, formatter, important notes); CLAUDE.md now just `@AGENTS.md`
 - 2.6: Confirmed `getAllPosts` already sorts by date descending — no code change needed
 - 3.1: RSS 2.0 feed at `GET /api/rss` (`pages/api/rss.ts`); respects `blogExcludedSlugs`; RSS `<link>` tag added to `next-seo.config.ts`
-- 3.4: Reading time (`lib/readingTime.ts`) — wired through `[...slug].tsx` → `PostSingle` → `PostMeta`; displays "N min read" next to date
+- 3.4: Reading time (`lib/reading-time.ts`) — wired through `[...slug].tsx` → `PostSingle` → `PostMeta`; displays "N min read" next to date
 - 3.3: Dark mode — `darkMode: 'class'` in Tailwind; FOUC-prevention script in `_document.tsx`; sun/moon toggle in header; dark variants on header, nav, markdown body, code blocks, tables
 
 ### 2026-04-14 (session end)

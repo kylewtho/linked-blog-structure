@@ -1,4 +1,4 @@
-import type { TocItem } from "../../lib/markdownToHtml";
+import type { TocItem } from "../../lib/markdown-to-html";
 
 type Props = { items: TocItem[] };
 
