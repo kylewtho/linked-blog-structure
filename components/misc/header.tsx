@@ -109,23 +109,49 @@ const Header = () => {
                   leaveEnd="opacity-0"
                   appear={undefined}
                   >
-                <ul className="px-5 py-2">
-                  {BLOG_CONFIG.navLinks.map((link) => (
-                    <li key={link.href}>
-                      <Link href={link.href} className="flex text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2">
-                        {link.name}
-                      </Link>
+                <div className="px-5 pt-4 pb-2">
+                  {/* Search input */}
+                  <div className="relative flex items-center mb-4">
+                    <input
+                      type="search"
+                      placeholder="Search my notes"
+                      onFocus={() => { setSearching(true); setMobileNavOpen(false); }}
+                      className="w-full text-gray-800 dark:text-gray-100 bg-gray-100 dark:bg-zinc-800 placeholder-gray-400 dark:placeholder-gray-500 rounded px-3 py-2 pl-9 text-sm focus:outline-none"
+                      readOnly
+                    />
+                    <svg className="absolute left-3 w-4 h-4 fill-current text-gray-400" viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+                      <path d="M7 14c-3.86 0-7-3.14-7-7s3.14-7 7-7 7 3.14 7 7-3.14 7-7 7zM7 2C4.243 2 2 4.243 2 7s2.243 5 5 5 5-2.243 5-5-2.243-5-5-5zM15.707 14.293L13.314 11.9a8.019 8.019 0 01-1.414 1.414l2.393 2.393a.997.997 0 001.414 0 .999.999 0 000-1.414z" />
+                    </svg>
+                  </div>
+
+                  {/* Nav links + dark mode row */}
+                  <ul>
+                    {BLOG_CONFIG.navLinks.map((link) => (
+                      <li key={link.href}>
+                        <Link href={link.href} className="flex text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2">
+                          {link.name}
+                        </Link>
+                      </li>
+                    ))}
+                    <li className="border-t border-gray-200 dark:border-zinc-700 mt-2 pt-2">
+                      <button
+                        onClick={toggleDark}
+                        className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 w-full"
+                      >
+                        {dark ? (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 3v1m0 16v1m8.66-9h-1M4.34 12h-1m15.07-6.07-.71.71M6.34 17.66l-.71.71m12.02 0-.71-.71M6.34 6.34l-.71-.71M12 7a5 5 0 100 10A5 5 0 0012 7z" />
+                          </svg>
+                        ) : (
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M21 12.79A9 9 0 1111.21 3a7 7 0 009.79 9.79z" />
+                          </svg>
+                        )}
+                        {dark ? 'Light mode' : 'Dark mode'}
+                      </button>
                     </li>
-                  ))}
-                  <li>
-                    <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 w-full">Search</button>
-                  </li>
-                  <li>
-                    <button onClick={toggleDark} className="flex items-center gap-2 text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 w-full">
-                      {dark ? 'Light mode' : 'Dark mode'}
-                    </button>
-                  </li>
-                </ul>
+                  </ul>
+                </div>
               </Transition>
             </div>
           {/* Hamburger button (mobile only) */}
