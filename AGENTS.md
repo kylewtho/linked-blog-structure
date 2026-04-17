@@ -690,17 +690,32 @@ For a single agent working sequentially, follow this order:
 | 4 | 4.2 React 19 upgrade | `[x]` |
 | 4 | 4.3 OG image defaults | `[ ]` needs Kyle asset — public/og-default.png (1200×630) |
 | 4 | 4.4 Image CLS fix | `[x]` |
-| 5 | 5.1 Mobile nav dark mode | `[ ]` |
+| 5 | 5.1 Mobile nav dark mode | `[x]` |
 | 5 | 5.2 Copy button on code blocks | `[ ]` |
 | 5 | 5.3 Table of contents | `[ ]` |
 | 5 | 5.4 Related posts | `[ ]` |
 | 5 | 5.5 Scroll progress bar | `[ ]` |
 | 5 | 5.6 Search debounce + static index | `[ ]` |
 | 5 | 5.7 Font (Geist / Inter) | `[ ]` |
+| 6 | 6.1 /about page (placeholder → about.md) | `[x]` placeholder live, full impl later |
+| 6 | 6.2 /projects page (placeholder → design TBD) | `[x]` renders projects.md |
+| 6 | 6.3 /resources page | `[x]` |
+| 6 | 6.4 Resume nav link (stays external → /about eventually) | `[ ]` deferred |
 
 ---
 
 ## Change Log
+
+### 2026-04-17
+- Security fixes: search API guard for missing `q` param; post-preview API path traversal mitigation via `path.basename()` on slug segments; added `return` before 405 responses
+- 5.1: Mobile nav dark mode complete — hamburger button restored (was missing); dropdown bg `dark:bg-zinc-900`; dark text on nav links
+- Mobile nav UX overhaul: search input at top of dropdown (opens search overlay on focus); dark mode as icon+text button with separator; desktop-only search icon + dark mode icon in header bar
+- Phase 6 pages: `/about` (renders home.md, swap to about.md when ready), `/projects` (renders projects.md), `/resources` (renders resources.md); all added to RESERVED_SLUGS and blogExcludedSlugs
+- navLinks updated to internal routes: About → /about, Projects → /projects, Resources → /resources
+- Author avatar fix: `Author` interface now accepts `url` field (frontmatter uses `url`, not `picture`); post-meta falls back `picture || url || BLOG_CONFIG.author.picture`
+- Tags on individual post pages: rendered after date, chips link to `/tags/[tag]`; `[...slug].tsx` fetches `tags` field
+- Backlinks key prop fix; hr divider moved to after tags, hidden on desktop (lg:hidden)
+- Dark mode zinc fixes: note-preview cards + footer social icons use `dark:bg-zinc-800/zinc-700`
 
 ### 2026-04-16 (session cont.)
 - 3.5: Tags system — `tags` field on Post interface; tag chips on PostPreview with click-to-filter; client-side tag filter bar on /blog; `pages/tags/[tag].tsx` statically generated; `tags` added to RESERVED_SLUGS

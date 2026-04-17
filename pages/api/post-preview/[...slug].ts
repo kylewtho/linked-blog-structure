@@ -9,8 +9,9 @@ export default function postHandler(req: NextApiRequest, res: NextApiResponse) {
   } = req
   if (method != 'GET') {
     res.setHeader('Allow', ['GET'])
-    res.status(405).send(`Method ${method} Not Allowed`)
+    return res.status(405).send(`Method ${method} Not Allowed`)
   }
-  const post = getPostBySlug(path.join(...(slug as string[])), ['title', 'excerpt']);
+  const slugParts = (slug as string[]).map(s => path.basename(s))
+  const post = getPostBySlug(path.join(...slugParts), ['title', 'excerpt']);
   res.status(200).json(post);
 }
