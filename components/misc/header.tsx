@@ -100,7 +100,7 @@ const Header = () => {
                   show={mobileNavOpen}
                   tag="nav"
                   id="mobile-nav"
-                  className="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-scroll bg-white"
+                  className="absolute top-full h-screen pb-16 z-20 left-0 w-full overflow-scroll bg-white dark:bg-zinc-900"
                   enter="transition ease-out duration-200 transform"
                   enterStart="opacity-0 -translate-y-2"
                   enterEnd="opacity-100 translate-y-0"
@@ -112,17 +112,35 @@ const Header = () => {
                 <ul className="px-5 py-2">
                   {BLOG_CONFIG.navLinks.map((link) => (
                     <li key={link.href}>
-                      <Link href={link.href} className="flex text-gray-600 hover:text-gray-900 py-2">
+                      <Link href={link.href} className="flex text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2">
                         {link.name}
                       </Link>
                     </li>
                   ))}
                   <li>
-                    <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 hover:text-gray-900 py-2 w-full">Search</button>
+                    <button onClick={() => {setSearching(true); setMobileNavOpen(false);}} className="flex text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white py-2 w-full">Search</button>
                   </li>                                  
                 </ul>
               </Transition>
             </div>
+          {/* Hamburger button (mobile only) */}
+            <li className="md:hidden">
+              <button
+                ref={trigger}
+                className={`hamburger w-8 h-8 my-auto mx-1 flex items-center justify-center text-gray-400 hover:text-gray-600 dark:text-gray-400 dark:hover:text-gray-200 transition ${mobileNavOpen && 'active'}`}
+                aria-controls="mobile-nav"
+                aria-expanded={mobileNavOpen}
+                onClick={() => setMobileNavOpen(!mobileNavOpen)}
+              >
+                <span className="sr-only">Menu</span>
+                <svg className="w-5 h-5 fill-current" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <rect y="2" width="20" height="2" rx="1" />
+                  <rect y="9" width="20" height="2" rx="1" />
+                  <rect y="16" width="20" height="2" rx="1" />
+                </svg>
+              </button>
+            </li>
+
           {/* Dark mode toggle */}
             <li>
               <button
