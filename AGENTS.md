@@ -674,6 +674,41 @@ Update `tailwind.config.js` `fontFamily.sans` to reference the CSS variable.
 
 ---
 
+## Phase 6: Identity & Presence
+
+### 6.1 Badges & Certifications Display
+**Status:** `[ ]`  
+**Files:** TBD — likely `pages/about.tsx` or `pages/index.tsx` (homepage section), `components/misc/badges.tsx` *(new)*
+
+**Goal:** Display professional badges and rankings from external platforms — e.g. Credly (certs), TryHackMe (ranking), LetsDefend, and others Kyle uses. Exact platforms and layout TBD by Kyle.
+
+**Open decisions (Kyle to decide before implementation):**
+- [ ] Where to display: dedicated `/about` page section, homepage hero/section, or both?
+- [ ] Badge source: embed iframes/widgets from each platform, or fetch via API and render natively?
+- [ ] Layout: horizontal strip of logos? Grid? Card per platform with rank/score?
+- [ ] Which platforms to include first: Credly, TryHackMe, LetsDefend — others?
+
+**Notes for implementation (once decisions are made):**
+- Credly has embeddable badge widgets and a public API
+- TryHackMe has a public profile card embed (`https://tryhackme-badges.s3.amazonaws.com/...`)
+- LetsDefend has profile badges
+- Prefer static embeds over runtime API calls to keep the build simple
+- If using a dedicated `/about` page, add `about` to `RESERVED_SLUGS` in `[...slug].tsx`
+
+**Acceptance:** Kyle's certifications and platform rankings are visible on the site in a layout Kyle approves.
+
+---
+
+### 6.4 Resume Nav Link
+**Status:** `[ ]`  
+**Files:** `components/misc/header.tsx`
+
+**Goal:** Add a "Resume" link to the site nav pointing to Kyle's CV/resume (URL or PDF TBD).
+
+**Acceptance:** Nav includes a Resume link that opens the resume.
+
+---
+
 ## Execution Order
 
 For a single agent working sequentially, follow this order:
@@ -712,6 +747,7 @@ Phases 1–4 complete. Phase 5 UX polish is next.
 | 5 | 5.5 Scroll progress bar | `[ ]` |
 | 5 | 5.6 Search debounce + static index | `[ ]` |
 | 5 | 5.7 Font (Geist / Inter) | `[ ]` |
+| 6 | 6.1 Badges & certifications display (decisions pending) | `[ ]` |
 | 6 | 6.4 Resume nav link (deferred) | `[ ]` |
 | — | 4.3 OG image — `public/og-default.png` added by Kyle | `[x]` |
 | — | 3.2 Giscus comments | postponed — do not action |
