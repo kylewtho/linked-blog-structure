@@ -57,6 +57,7 @@ export default function Post({ post, backlinks, readingTime }: Props) {
             author={post.author}
             backlinks={backlinks}
             readingTime={readingTime}
+            tags={post.tags}
           />
         </Layout>
       )}
@@ -81,6 +82,7 @@ export async function getStaticProps({ params }: Params) {
     'author',
     'content',
     'ogImage',
+    'tags',
   ])
   const readingTime = getReadingTime(post.content || '')
   const content = await markdownToHtml(post.content || '', slug)

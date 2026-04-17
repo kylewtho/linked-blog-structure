@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 import Author from '../../interfaces/author';
 import Backlinks from '../misc/backlinks';
 import PostBody from './post-body';
@@ -10,6 +11,7 @@ type Props = {
   date?: string,
   author?: Author,
   readingTime?: string,
+  tags?: string[],
   backlinks: { [k: string]: {
       title: string,
       excerpt: string,
@@ -23,6 +25,7 @@ function PostSingle({
   author,
   content,
   readingTime,
+  tags,
   backlinks
 }: Props) {
   return (
@@ -42,7 +45,6 @@ function PostSingle({
               {/* Article content */}
               <div className="lg:flex lg:justify-between" data-sticky-container>
 
-
                 {/* Main content */}
                 <div>
 
@@ -52,6 +54,21 @@ function PostSingle({
                       <PostMeta author={author} date={date} readingTime={readingTime}/>
                       <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
                     </>
+                  )}
+
+                  {/* Tags */}
+                  {tags && tags.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mb-6">
+                      {tags.map((tag) => (
+                        <Link
+                          key={tag}
+                          href={`/tags/${tag}`}
+                          className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition"
+                        >
+                          #{tag}
+                        </Link>
+                      ))}
+                    </div>
                   )}
 
                   {/* Article body */}
