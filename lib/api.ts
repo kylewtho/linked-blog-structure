@@ -5,16 +5,29 @@ import { getFilesRecursively } from './modules/find-files-recusively.mjs'
 import removeMd from 'remove-markdown'
 import { BLOG_CONFIG } from './config'
 
+// Known agent/AI tool file base names — explicit safeguard regardless of casing.
+// Add new tools here as needed.
+const AGENT_FILE_NAMES = new Set([
+  'CLAUDE',   // Anthropic Claude Code (CLAUDE.md, CLAUDE.local.md)
+  'AGENTS',   // OpenAI Codex, Google Gemini (AGENTS.md)
+  'GEMINI',   // Google Gemini
+  'COPILOT',  // GitHub Copilot
+  'CURSOR',   // Cursor (.cursorrules — won't appear as .md but included for safety)
+  'CODERABBIT', // CodeRabbit
+])
+
 // Returns true if a slug should be hidden from the blog feed, RSS, and static paths.
-// Rules (in order):
-//   1. All-caps first segment → agent/meta file (CLAUDE, AGENTS, GEMINI, etc.)
-//   2. Matches a pattern in BLOG_CONFIG.blogExcludedSlugs
-//      - exact match: 'home'
-//      - folder wildcard: 'descriptions/*'  → any slug starting with 'descriptions/'
-//      - prefix wildcard: 'CLAUDE*'         → any slug starting with 'CLAUDE'
+// Two layers of defence:
+//   1. All-caps first segment → catches any agent file by convention (CLAUDE.local → 'CLAUDE')
+//   2. Explicit AGENT_FILE_NAMES set → catches known tools even if naming changes
+//   3. BLOG_CONFIG.blogExcludedSlugs patterns:
+//        exact match: 'home'
+//        folder wildcard: 'descriptions/*'
+//        prefix wildcard: 'CLAUDE*'
 export function isExcludedSlug(slug: string): boolean {
   const firstSegment = slug.split(/[./]/)[0]
   if (/^[A-Z]{2,}$/.test(firstSegment)) return true
+  if (AGENT_FILE_NAMES.has(firstSegment.toUpperCase())) return true
   return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
     if (pattern.endsWith('/*')) return slug.startsWith(pattern.slice(0, -2) + '/')
     if (pattern.endsWith('*')) return slug.startsWith(pattern.slice(0, -1))
