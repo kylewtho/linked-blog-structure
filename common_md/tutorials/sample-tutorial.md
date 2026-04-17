@@ -2,7 +2,10 @@
 title: "Sample Tutorial: Getting Started"
 excerpt: A brief guide on how to add new content to this blog structure.
 date: "2026-04-17"
-tags: [tutorial, guide, documentation]
+tags:
+  - tutorial
+  - guide
+  - documentation
 ---
 
 # How to Add Content

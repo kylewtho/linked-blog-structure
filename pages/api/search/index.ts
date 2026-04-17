@@ -1,10 +1,8 @@
-import { Searcher } from 'fast-fuzzy';
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { getAllPosts, getMDExcerpt } from '../../../lib/api'
+import { Searcher } from "fast-fuzzy";
+import type { NextApiRequest, NextApiResponse } from "next";
+import { getAllPosts, getMDExcerpt } from "../../../lib/api";
 
-const allPosts = getAllPosts([
-  "slug", "title", "content", "author", "date"
-]);
+const allPosts = getAllPosts(["slug", "title", "content", "author", "date"]);
 const searchIndex = allPosts.map((p) => {
   return {
     slug: p.slug,
@@ -12,20 +10,24 @@ const searchIndex = allPosts.map((p) => {
     excerpt: getMDExcerpt(p.content),
     date: p.date,
     author: p.author,
-  }
+  };
 });
-const searcher = new Searcher(searchIndex, {keySelector: (obj) => `${obj.title}\n${obj.excerpt}`})
+const searcher = new Searcher(searchIndex, {
+  keySelector: (obj) => `${obj.title}\n${obj.excerpt}`,
+});
 
 export default function postHandler(req: NextApiRequest, res: NextApiResponse) {
   const {
     query: { q },
     method,
-  } = req
-  if (method != 'GET') {
-    res.setHeader('Allow', ['GET'])
-    return res.status(405).send(`Method ${method} Not Allowed`)
+  } = req;
+  if (method !== "GET") {
+    res.setHeader("Allow", ["GET"]);
+    return res.status(405).send(`Method ${method} Not Allowed`);
   }
-  if (!q) return res.status(200).json([])
-  const searchedPosts = searcher.search(q.toString(), { returnMatchData: true });
-  res.status(200).json(searchedPosts.slice(0, 10))
+  if (!q) return res.status(200).json([]);
+  const searchedPosts = searcher.search(q.toString(), {
+    returnMatchData: true,
+  });
+  res.status(200).json(searchedPosts.slice(0, 10));
 }

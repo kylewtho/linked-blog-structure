@@ -20,25 +20,25 @@ export const BLOG_CONFIG = {
     { name: "LinkedIn", href: "https://linkedin.com/in/kylewtho" },
   ],
   featuredPosts: [
-    { slug: 'articles/self-trust', title: 'Self-Trust' },
-    { slug: 'articles/resources', title: 'Resources' },
+    { slug: "articles/self-trust", title: "Self-Trust" },
+    { slug: "articles/resources", title: "Resources" },
   ] as { slug: string; title: string }[],
   // Slugs excluded from the /blog feed.
   // - Exact slug:    'home'            → excludes home.md only
   // - Folder prefix: 'descriptions/*'  → excludes all files inside descriptions/
   blogExcludedSlugs: [
-    'home',
-    'faq',
-    'privacy-policy',
-    'projects',
-    'resources',
-    'terms-and-conditions',
-    'descriptions/*',
-    'placeholders/*',
-    'tutorials/*',
-    'archive/*',
-    'CLAUDE*',
-    'AGENTS*',
+    "home",
+    "faq",
+    "privacy-policy",
+    "projects",
+    "resources",
+    "terms-and-conditions",
+    "descriptions/*",
+    "placeholders/*",
+    "tutorials/*",
+    "archive/*",
+    "CLAUDE*",
+    "AGENTS*",
   ],
   siteUrl: "https://kyleho.net",
-}
+};

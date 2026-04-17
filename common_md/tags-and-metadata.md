@@ -5,7 +5,10 @@ date: "2026-04-14"
 author:
   name: "Kyle"
   url: "https://avatars.githubusercontent.com/u/55761838?v=4"
-tags: [metadata, tutorial, setup]
+tags:
+  - metadata
+  - tutorial
+  - setup
 ---
 
 # Tags & Metadata
@@ -35,7 +38,9 @@ For example, this post is tagged with `metadata`, `tutorial`, and `setup`. If yo
 title: My Great Post
 excerpt: Just a summary.
 date: "2026-04-16"
-tags: [tech, react]
+tags:
+  - tech
+  - react
 ---
 ```
 

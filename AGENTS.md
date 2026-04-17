@@ -39,9 +39,15 @@ Content flows in via GitHub Actions on every push to `linked-blog`:
 
 ---
 
-## Formatter
+## Formatter & Linter
 
-No formatter is configured (no Prettier or Biome). Use VS Code's built-in formatter if needed.
+This project uses **Biome** for fast formatting and linting.
+
+**Agent Requirement:** Always run the formatter and linter before completing a task that modifies code:
+- `npm run format` — Formats code using Biome
+- `npm run lint` — Runs Biome linter and applies safe fixes
+
+Biome is configured in `biome.json` and is integrated with the VCS (git) to respect ignore files.
 
 ---
 
@@ -489,7 +495,14 @@ Pass `readingTime` as a prop from `[...slug].tsx` → `PostSingle` → `PostMeta
 **Status:** `[x]`  
 **Files:** `pages/blog.tsx`, `pages/tags/[tag].tsx` *(new)*, `components/blog/post-preview.tsx`, `lib/api.ts`
 
-**Goal:** Posts can declare `tags: [cyber, notes, tools]` in their frontmatter. The blog feed supports filtering by tag.
+**Goal:** Posts declare tags using Obsidian block-list convention in their frontmatter:
+```yaml
+tags:
+  - cyber
+  - notes
+  - tools
+```
+The blog feed supports filtering by tag. `gray-matter` parses both inline `[a, b]` and block-list formats; all sample posts now use block-list.
 
 **Steps:**
 1. `lib/api.ts` — `getAllPosts` already reads arbitrary frontmatter fields; ensure `tags` is passed through when requested
@@ -685,6 +698,7 @@ When there is existing know fix items, add new work to the most earliest possibl
 - [x] Wikilink & Image fallback: Some `[[wikilinks]]` and `![[images]]` are not being converted by the export process.
 - [x] markdown files in 'home', 'faq', 'privacy-policy', 'projects', 'resources', 'terms-and-conditions', 'descriptions/*', 'placeholders/*', 'tutorials/*' should ONLY be excluded from the blog feed, but still be accessible at their respective paths. Verify this is the case and fix any issues.
 - [x] home.md triggers GET /home 404. Fix
+- [x] Tags frontmatter convention: all `common_md` posts converted from `tags: [a, b]` to Obsidian block-list format (`tags:\n  - a\n  - b`). No code change needed — `gray-matter` handles both; convention standardised for Obsidian compatibility.
 
 ## Current Status
 

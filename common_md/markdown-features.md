@@ -2,7 +2,9 @@
 title: Markdown Features Demo
 excerpt: A comprehensive guide to the Markdown features supported by this blog, including code blocks, formatting, and quotes.
 date: "2026-04-16"
-tags: [guide, markdown]
+tags:
+  - guide
+  - markdown
 ---
 
 # Markdown Features Demo

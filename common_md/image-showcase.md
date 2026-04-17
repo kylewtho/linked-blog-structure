@@ -2,7 +2,9 @@
 title: Image Showcase
 excerpt: Demonstrating how images are handled, optimized, and displayed in your blog posts.
 date: "2026-04-13"
-tags: [images, design]
+tags:
+  - images
+  - design
 ---
 
 # Image Showcase

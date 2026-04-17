@@ -2,7 +2,10 @@
 title: Sample Placeholder
 excerpt: A placeholder post used for development and testing of the blog layout.
 date: "2026-04-17"
-tags: [placeholder, development, test]
+tags:
+  - placeholder
+  - development
+  - test
 ---
 
 # Sample Placeholder Post

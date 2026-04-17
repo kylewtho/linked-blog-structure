@@ -7,7 +7,9 @@
     "prebuild": "npm run copyimages",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "format": "biome format --write .",
+    "lint": "biome lint --write ."
   },
   "dependencies": {
     "@shikijs/rehype": "^4.0.2",
@@ -39,6 +41,7 @@
     "typescript": "^5.0.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "^2.4.12",
     "@types/node": "^20.0.0",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",

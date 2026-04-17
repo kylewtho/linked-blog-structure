@@ -2,7 +2,10 @@
 title: Curated Resources
 excerpt: A collection of tools, libraries, and articles that I find useful for development and design.
 date: "2026-04-11"
-tags: [resources, tools, learning]
+tags:
+  - resources
+  - tools
+  - learning
 ---
 
 # Curated Resources

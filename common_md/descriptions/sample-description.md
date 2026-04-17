@@ -2,7 +2,10 @@
 title: Sample Project Description
 excerpt: An example of how to describe a project using the blog's Markdown features.
 date: "2026-04-17"
-tags: [project, showcase, demo]
+tags:
+  - project
+  - showcase
+  - demo
 ---
 
 # Sample Project: Digital Garden Engine

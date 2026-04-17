@@ -2,7 +2,11 @@
 title: The Meta-Garden: Building the Engine
 excerpt: A deep dive into the technology and philosophy behind this interconnected blog structure.
 date: "2026-04-17"
-tags: [meta, nextjs, shiki, development]
+tags:
+  - meta
+  - nextjs
+  - shiki
+  - development
 ---
 
 # Building the Meta-Garden

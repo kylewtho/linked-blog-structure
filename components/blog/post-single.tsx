@@ -1,27 +1,27 @@
-import React from 'react';
-import Link from 'next/link';
-import Author from '../../interfaces/author';
-import Backlinks from '../misc/backlinks';
-import PostBody from './post-body';
-import PostMeta from './post-meta';
-import PopularPosts from './popular-posts';
-import Toc from './toc';
-import { TocItem } from '../../lib/markdownToHtml';
+import Link from "next/link";
+import type Author from "../../interfaces/author";
+import Backlinks from "../misc/backlinks";
+import PostBody from "./post-body";
+import PostMeta from "./post-meta";
+import PopularPosts from "./popular-posts";
+import Toc from "./toc";
+import type { TocItem } from "../../lib/markdownToHtml";
 
 type Props = {
-  title: string,
-  content: string,
-  date?: string,
-  author?: Author,
-  readingTime?: string,
-  tags?: string[],
-  toc?: TocItem[],
-  backlinks: { [k: string]: {
-      title: string,
-      excerpt: string,
-    }
-  }
-}
+  title: string;
+  content: string;
+  date?: string;
+  author?: Author;
+  readingTime?: string;
+  tags?: string[];
+  toc?: TocItem[];
+  backlinks: {
+    [k: string]: {
+      title: string;
+      excerpt: string;
+    };
+  };
+};
 
 function PostSingle({
   title,
@@ -31,17 +31,15 @@ function PostSingle({
   readingTime,
   tags,
   toc,
-  backlinks
+  backlinks,
 }: Props) {
-  const hasBacklinks = Object.keys(backlinks).length > 0
+  const hasBacklinks = Object.keys(backlinks).length > 0;
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           <div className="max-w-3xl mx-auto lg:max-w-none">
-
             <article>
-
               {/* Article header */}
               <header className="max-w-3xl mx-auto mb-20">
                 {/* Title */}
@@ -49,14 +47,19 @@ function PostSingle({
               </header>
 
               {/* Article content */}
-              <div className="lg:flex lg:justify-between" data-sticky-container>
-
+              <div
+                className="lg:flex lg:justify-between"
+                data-sticky-container={true}
+              >
                 {/* Main content */}
                 <div className="min-w-0 grow">
-
                   {/* Article meta */}
                   {(author || date) && (
-                    <PostMeta author={author} date={date} readingTime={readingTime}/>
+                    <PostMeta
+                      author={author}
+                      date={date}
+                      readingTime={readingTime}
+                    />
                   )}
 
                   {/* Tags */}
@@ -79,17 +82,18 @@ function PostSingle({
                   )}
 
                   {/* Article body */}
-                  <PostBody content={content}/>
-
+                  <PostBody content={content} />
                 </div>
 
                 {/* Sidebar */}
-                <hr className="my-10 border border-dashed lg:hidden"/>
+                <hr className="my-10 border border-dashed lg:hidden" />
                 <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
                   {toc && toc.length > 0 && <Toc items={toc} />}
                   {hasBacklinks ? (
                     <div>
-                      <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>
+                      <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">
+                        Backlinks
+                      </h4>
                       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
                         <Backlinks backlinks={backlinks} />
                       </div>
@@ -98,14 +102,11 @@ function PostSingle({
                     <PopularPosts />
                   )}
                 </aside>
-
               </div>
 
               {/* Article footer */}
             </article>
-
           </div>
-
         </div>
       </div>
     </section>

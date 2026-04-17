@@ -2,7 +2,9 @@
 title: Linking & Backlinks
 excerpt: Understanding how internal links and bi-directional backlinks work in this blog structure.
 date: "2026-04-15"
-tags: [features, obsidian]
+tags:
+  - features
+  - obsidian
 ---
 
 # Linking & Backlinks

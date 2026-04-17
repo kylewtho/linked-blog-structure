@@ -2,7 +2,10 @@
 title: Markdown Mastery: Advanced Techniques
 excerpt: Level up your digital garden with advanced Markdown features, tables, and custom links.
 date: "2026-04-17"
-tags: [tutorial, markdown, guide]
+tags:
+  - tutorial
+  - markdown
+  - guide
 ---
 
 # Markdown Mastery

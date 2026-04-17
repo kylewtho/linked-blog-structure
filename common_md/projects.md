@@ -2,7 +2,10 @@
 title: My Projects
 excerpt: A showcase of my latest work, experiments, and open-source contributions.
 date: "2026-04-12"
-tags: [portfolio, dev, opensource]
+tags:
+  - portfolio
+  - dev
+  - opensource
 ---
 
 # Projects Showcase

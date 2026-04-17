@@ -2,7 +2,10 @@
 title: The Philosophy of Digital Gardening
 excerpt: A long-form exploration of why we should stop blogging and start gardening our digital notes.
 date: "2026-04-17"
-tags: [philosophy, productivity, learning]
+tags:
+  - philosophy
+  - productivity
+  - learning
 ---
 
 # The Philosophy of Digital Gardening
