@@ -74,7 +74,15 @@ export function getPostBySlug(slug: string, fields: string[] = []) {
 
 function parseFileToObj(pathToObj: string) {
   const fileContents = fs.readFileSync(pathToObj, 'utf8')
-  const { data, content } = matter(fileContents)
+  let data: Record<string, any> = {}
+  let content = fileContents
+  try {
+    const parsed = matter(fileContents)
+    data = parsed.data
+    content = parsed.content
+  } catch (e) {
+    console.warn(`[api] YAML parse error in ${pathToObj}:`, (e as Error).message)
+  }
 
   data['content'] = content
 
@@ -126,6 +134,19 @@ export function getSlugFromHref (currSlug: string, href: string) {
 }
 
 export function updateMarkdownLinks(markdown: string, currSlug: string) {
+  // convert Obsidian ![[image.ext]] → standard markdown image
+  markdown = markdown.replaceAll(/!\[\[([^\[\]]+?)\]\]/g, (_, inner) => {
+    const [src, alt = src] = inner.split('|').map((s: string) => s.trim())
+    return `![${alt}](${src})`
+  })
+
+  // convert Obsidian [[page|Label]] and [[page]] → standard markdown link
+  markdown = markdown.replaceAll(/\[\[([^\[\]]+?)\]\]/g, (_, inner) => {
+    const [ref, label] = inner.split('|').map((s: string) => s.trim())
+    const href = ref.replace(/ /g, '-').toLowerCase() + '.md'
+    return `[${label ?? ref}](${href})`
+  })
+
   // remove `.md` from links
   markdown = markdown.replaceAll(/(\[[^\[\]]+\]\([^\(\)]+)(\.md(?:#[^\)]*)?)(\))/g, "$1$3");
 

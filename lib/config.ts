@@ -33,6 +33,7 @@ export const BLOG_CONFIG = {
     'descriptions/*',
     'placeholders/*',
     'tutorials/*',
+    'archive/*',
     'CLAUDE*',
     'AGENTS*',
   ],

@@ -681,10 +681,10 @@ When there is existing know fix items, add new work to the most earliest possibl
 ---
 
 ## Known fix list (manual update by Kyle through testing, please add this to the plan)
-- [ ] home.md has a different width than other pages. (sidebar logic must be preserved).
-- [ ] Wikilink & Image fallback: Some `[[wikilinks]]` and `![[images]]` are not being converted by the export process.
-- [ ] markdown files in 'home', 'faq', 'privacy-policy', 'projects', 'resources', 'terms-and-conditions', 'descriptions/*', 'placeholders/*', 'tutorials/*' should ONLY be excluded from the blog feed, but still be accessible at their respective paths. Verify this is the case and fix any issues.
-- [ ] home.md triggers GET /home 404. Fix
+- [x] home.md has a different width than other pages. (sidebar logic must be preserved).
+- [x] Wikilink & Image fallback: Some `[[wikilinks]]` and `![[images]]` are not being converted by the export process.
+- [x] markdown files in 'home', 'faq', 'privacy-policy', 'projects', 'resources', 'terms-and-conditions', 'descriptions/*', 'placeholders/*', 'tutorials/*' should ONLY be excluded from the blog feed, but still be accessible at their respective paths. Verify this is the case and fix any issues.
+- [x] home.md triggers GET /home 404. Fix
 
 ## Current Status
 
@@ -727,6 +727,10 @@ When there is existing know fix items, add new work to the most earliest possibl
 ## Change Log
 
 ### 2026-04-17
+- Bug fix: `[[wikilink]]` and `![[image]]` Obsidian syntax now converted in `lib/api.ts` `updateMarkdownLinks` (prepended before standard link processing)
+- Bug fix: `/home` → `/` permanent redirect added to `next.config.js` (home.md was excluded from `getStaticPaths`, causing 404 on wikilink-generated `/home` hrefs)
+- Bug fix: `isExcludedSlug` removed from `[...slug].tsx` `getStaticPaths` filter — excluded slugs (faq, tutorials/*, etc.) are now accessible at their paths; blog feed exclusion is unaffected
+- Bug fix: `PostSingle` width — when no backlinks, outer div uses `max-w-3xl mx-auto` (no sidebar) matching header width; flex+sidebar layout preserved when backlinks exist
 - Reverted: Sidebar standardization in `PostSingle.tsx` was reverted due to disruption of backlink logic.
 - Security Audit: Documented path traversal status as low-risk/ignored in static generation environment.
 - Documentation: Added "Development Environment & Content" section to AGENTS.md clarifying the role of `common_md/` as a template folder.

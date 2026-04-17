@@ -28,11 +28,12 @@ function PostSingle({
   tags,
   backlinks
 }: Props) {
+  const hasBacklinks = Object.keys(backlinks).length > 0
   return (
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-          <div className="max-w-3xl mx-auto lg:max-w-none">
+          <div className={hasBacklinks ? "max-w-3xl mx-auto lg:max-w-none" : "max-w-3xl mx-auto"}>
 
             <article>
 
@@ -43,7 +44,7 @@ function PostSingle({
               </header>
 
               {/* Article content */}
-              <div className="lg:flex lg:justify-between" data-sticky-container>
+              <div className={hasBacklinks ? "lg:flex lg:justify-between" : ""} data-sticky-container>
 
                 {/* Main content */}
                 <div>
@@ -78,19 +79,19 @@ function PostSingle({
                 </div>
 
                 {/* Sidebar */}
-                <hr className="my-10 border border-dashed lg:hidden"/>
-                <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
-                  <div>
-                    <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-                      {
-                        (Object.keys(backlinks).length > 0) && (
-                            <Backlinks backlinks={backlinks} />
-                        )
-                      }
-                    </div>
-                  </div>
-                </aside>
+                {hasBacklinks && (
+                  <>
+                    <hr className="my-10 border border-dashed lg:hidden"/>
+                    <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
+                      <div>
+                        <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">Backlinks</h4>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                          <Backlinks backlinks={backlinks} />
+                        </div>
+                      </div>
+                    </aside>
+                  </>
+                )}
 
               </div>
 

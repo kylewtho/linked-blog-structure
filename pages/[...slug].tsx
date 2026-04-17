@@ -1,6 +1,6 @@
 import { useRouter } from 'next/router'
 import ErrorPage from 'next/error'
-import { getPostBySlug, getAllPosts, getLinksMapping, isExcludedSlug } from '../lib/api'
+import { getPostBySlug, getAllPosts, getLinksMapping } from '../lib/api'
 import { markdownToHtml } from '../lib/markdownToHtml'
 import type PostType from '../interfaces/post'
 import path from 'path'
@@ -113,7 +113,7 @@ export async function getStaticPaths() {
   const posts = await getAllPosts(['slug'])
   return {
     paths: posts
-      .filter((post) => !RESERVED_SLUGS.has(post.slug) && !isExcludedSlug(post.slug))
+      .filter((post) => !RESERVED_SLUGS.has(post.slug))
       .map((post) => {
         return {
           params: {
