@@ -25,8 +25,12 @@ export default function Blog({ posts }: Props) {
 function isExcluded(slug: string): boolean {
   return BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
     if (pattern.endsWith('/*')) {
-      const prefix = pattern.slice(0, -2) // strip trailing /*
+      const prefix = pattern.slice(0, -2)
       return slug.startsWith(prefix + '/')
+    }
+    if (pattern.endsWith('*')) {
+      const prefix = pattern.slice(0, -1)
+      return slug.startsWith(prefix)
     }
     return slug === pattern
   })

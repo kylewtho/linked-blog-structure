@@ -45,6 +45,7 @@ export default async function handler(_req: NextApiRequest, res: NextApiResponse
   const posts = (getAllPosts(['slug', 'title', 'date', 'excerpt']) as unknown as { slug: string; title: string; date?: string; excerpt?: string }[]).filter(
     (post) => !BLOG_CONFIG.blogExcludedSlugs.some((pattern) => {
       if (pattern.endsWith('/*')) return post.slug.startsWith(pattern.slice(0, -2) + '/')
+      if (pattern.endsWith('*')) return post.slug.startsWith(pattern.slice(0, -1))
       return post.slug === pattern
     })
   )
