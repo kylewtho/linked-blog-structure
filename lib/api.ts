@@ -5,6 +5,9 @@ import { getFilesRecursively } from './modules/find-files-recusively.mjs'
 import removeMd from 'remove-markdown'
 import { BLOG_CONFIG } from './config'
 
+const COMMON_MD_DIR = process.env.COMMON_MD_DIR || './common_md'
+const MD_ASSET_DIR = process.env.MD_ASSET_DIR || './public/md_assets'
+
 // Known agent/AI tool file base names — explicit safeguard regardless of casing.
 // Add new tools here as needed.
 const AGENT_FILE_NAMES = new Set([
@@ -35,7 +38,7 @@ export function isExcludedSlug(slug: string): boolean {
   })
 }
 
-const mdDir = path.join(process.cwd(), process.env.COMMON_MD_DIR)
+const mdDir = path.join(process.cwd(), COMMON_MD_DIR)
 
 export function getMDExcerpt(markdown: string, length: number = 500) {
   const text = removeMd(markdown, {
@@ -133,7 +136,7 @@ export function updateMarkdownLinks(markdown: string, currSlug: string) {
     if (!m2.startsWith(slugDir)) {
       relLink = path.join(slugDir, m2)
     }
-    const relAssetDir = path.relative('./public', process.env.MD_ASSET_DIR)
+    const relAssetDir = path.relative('./public', MD_ASSET_DIR)
     const fileSlugRel = decodeURI(path.join(mdDir, relLink))
     const fileSlugAbs = decodeURI(path.join(mdDir, m2))
     if (fs.existsSync(fileSlugRel)) {
