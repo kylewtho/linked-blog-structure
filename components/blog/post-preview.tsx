@@ -22,7 +22,7 @@ const PostPreview = ({
   onTagClick,
 }: Props) => {
   return (
-    <article className="flex items-center py-4 border-b border-gray-200 dark:border-gray-700 justify-between w-full">
+    <article className="flex items-center py-4 justify-between w-full shadow-[0px_1px_0px_0px_rgba(0,0,0,0.08)] dark:shadow-[0px_1px_0px_0px_rgba(255,255,255,0.08)]">
       <div>
         <header>
           <h2 className="h4 mb-2">

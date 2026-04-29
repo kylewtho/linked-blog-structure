@@ -72,7 +72,7 @@ const Header = () => {
 
   return (
     <header
-      className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-zinc-900/90 transition duration-300 ease-in-out ${!top && "bg-white dark:bg-zinc-900 backdrop-blur-sm shadow-lg"}`}
+      className={`fixed w-full z-30 md:bg-white/90 dark:md:bg-zinc-900/90 transition duration-300 ease-in-out ${!top && "bg-white dark:bg-zinc-900 backdrop-blur-sm shadow-border"}`}
     >
       <div className="max-w-6xl mx-auto px-5 sm:px-6">
         <div className="flex items-center justify-between h-16 md:h-20">
@@ -91,7 +91,7 @@ const Header = () => {
           </div>
 
           {/* Site name */}
-          <h2 className="shrink-0 mr-4 text-2xl font-bold tracking-tight md:tracking-tighter leading-tight">
+          <h2 className="shrink-0 mr-4 text-2xl font-semibold tracking-tight md:tracking-tighter leading-tight">
             <Link
               href="/"
               className="block hover:underline"

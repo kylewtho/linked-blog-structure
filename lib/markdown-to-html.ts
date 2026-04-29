@@ -96,7 +96,10 @@ function rewriteLinkNodes(
     const noteCardNode = linkNodeMapping.get(slug);
     if (noteCardNode) {
       const anchorNode = { ...node };
-      anchorNode.properties = { ...node.properties, className: "internal-link" };
+      anchorNode.properties = {
+        ...node.properties,
+        className: "internal-link",
+      };
       node.tagName = "span";
       node.properties = { className: "internal-link-container" };
       node.children = [anchorNode, noteCardNode];

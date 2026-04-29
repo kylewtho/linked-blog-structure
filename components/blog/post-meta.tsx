@@ -54,9 +54,7 @@ const PostMeta = ({ author, date, readingTime }: Props) => {
             <DateFormatter dateString={date} />
           </span>
         )}
-        {readingTime && (
-          <span className="text-gray-600"> · {readingTime}</span>
-        )}
+        {readingTime && <span className="text-gray-600"> · {readingTime}</span>}
       </div>
     </div>
   );

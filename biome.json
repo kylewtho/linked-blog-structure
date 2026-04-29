@@ -59,7 +59,7 @@
         "noUselessTypeConstraint": "error",
         "noImportantStyles": "off"
       },
-    "correctness": {
+      "correctness": {
         "recommended": true,
         "noChildrenProp": "error",
         "noConstAssign": "error",

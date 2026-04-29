@@ -84,21 +84,21 @@ pre:hover .copy-code-btn {
   background-color: rgb(21 34 50) !important;
 }
 
-/* Typography */
+/* Typography — DESIGN.md: 600 max weight, size-aware negative letter-spacing */
 .h1 {
-  @apply text-4xl font-extrabold leading-tight tracking-tighter;
+  @apply text-4xl font-semibold leading-tight tracking-display;
 }
 
 .h2 {
-  @apply text-3xl font-extrabold leading-tight tracking-tighter;
+  @apply text-3xl font-semibold leading-tight tracking-heading;
 }
 
 .h3 {
-  @apply text-3xl font-bold leading-tight;
+  @apply text-3xl font-semibold leading-tight tracking-heading;
 }
 
 .h4 {
-  @apply text-2xl font-bold leading-snug tracking-tight;
+  @apply text-2xl font-semibold leading-snug tracking-subheading;
 }
 
 @screen md {

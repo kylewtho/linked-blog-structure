@@ -38,75 +38,73 @@ function PostSingle({
     <section>
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
-          <div className="max-w-3xl mx-auto lg:max-w-none">
-            <article>
-              {/* Article header */}
-              <header className="max-w-3xl mx-auto mb-20">
-                {/* Title */}
-                <h1 className="h1 text-center mb-4 text-6xl">{title}</h1>
-              </header>
+          <article>
+            {/* Article header */}
+            <header className="max-w-3xl mx-auto mb-20">
+              {/* Title */}
+              <h1 className="h1 text-center mb-4 text-6xl">{title}</h1>
+            </header>
 
-              {/* Article content */}
-              <div
-                className="lg:flex lg:justify-between"
-                data-sticky-container={true}
-              >
-                {/* Main content */}
-                <div className="min-w-0 grow">
-                  {/* Article meta */}
-                  {(author || date) && (
-                    <PostMeta
-                      author={author}
-                      date={date}
-                      readingTime={readingTime}
-                    />
-                  )}
+            {/* Article content */}
+            <div
+              className="lg:flex lg:justify-between"
+              data-sticky-container={true}
+            >
+              {/* Main content — capped at max-w-3xl so width is consistent regardless of sidebar */}
+              <div className="min-w-0 w-full max-w-3xl">
+                {/* Article meta */}
+                {(author || date) && (
+                  <PostMeta
+                    author={author}
+                    date={date}
+                    readingTime={readingTime}
+                  />
+                )}
 
-                  {/* Tags */}
-                  {tags && tags.length > 0 && (
-                    <div className="flex flex-wrap gap-2 mt-3 mb-3">
-                      {tags.map((tag) => (
-                        <Link
-                          key={tag}
-                          href={`/tags/${tag}`}
-                          className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition"
-                        >
-                          #{tag}
-                        </Link>
-                      ))}
-                    </div>
-                  )}
+                {/* Tags */}
+                {tags && tags.length > 0 && (
+                  <div className="flex flex-wrap gap-2 mt-3 mb-3">
+                    {tags.map((tag) => (
+                      <Link
+                        key={tag}
+                        href={`/tags/${tag}`}
+                        className="text-xs px-2 py-1 rounded-full bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-300 hover:bg-blue-100 dark:hover:bg-blue-900 hover:text-blue-700 dark:hover:text-blue-300 transition"
+                      >
+                        #{tag}
+                      </Link>
+                    ))}
+                  </div>
+                )}
 
-                  {(author || date || (tags && tags.length > 0)) && (
-                    <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
-                  )}
+                {(author || date || (tags && tags.length > 0)) && (
+                  <hr className="w-16 h-px pt-px bg-gray-200 border-0 my-6" />
+                )}
 
-                  {/* Article body */}
-                  <PostBody content={content} />
-                </div>
-
-                {/* Sidebar */}
-                <hr className="my-10 border border-dashed lg:hidden" />
-                <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
-                  {toc && toc.length > 0 && <Toc items={toc} />}
-                  {hasBacklinks ? (
-                    <div>
-                      <h4 className="text-lg font-bold leading-snug tracking-tight mb-4">
-                        Backlinks
-                      </h4>
-                      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
-                        <Backlinks backlinks={backlinks} />
-                      </div>
-                    </div>
-                  ) : (
-                    <PopularPosts />
-                  )}
-                </aside>
+                {/* Article body */}
+                <PostBody content={content} />
               </div>
 
-              {/* Article footer */}
-            </article>
-          </div>
+              {/* Sidebar */}
+              <hr className="my-10 border border-dashed lg:hidden" />
+              <aside className="relative lg:block lg:w-72 lg:ml-20 shrink-0">
+                {toc && toc.length > 0 && <Toc items={toc} />}
+                {hasBacklinks ? (
+                  <div>
+                    <h4 className="text-lg font-semibold leading-snug tracking-tight mb-4">
+                      Backlinks
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-1 gap-4">
+                      <Backlinks backlinks={backlinks} />
+                    </div>
+                  </div>
+                ) : (
+                  <PopularPosts />
+                )}
+              </aside>
+            </div>
+
+            {/* Article footer */}
+          </article>
         </div>
       </div>
     </section>

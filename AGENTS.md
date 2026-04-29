@@ -51,6 +51,12 @@ Biome is configured in `biome.json` and is integrated with the VCS (git) to resp
 
 ---
 
+## Design Reference
+
+A `DESIGN.md` file lives at the repo root. It encodes a Vercel-inspired design system (Geist font, achromatic palette, shadow-as-border, negative letter-spacing at display sizes). **Agents must read `DESIGN.md` before writing or modifying any UI component.** Apply its typography, colour, shadow, and spacing rules — skip the Vercel-specific workflow accent colours (Ship Red/Preview Pink/Develop Blue) as those are irrelevant to a blog.
+
+---
+
 ## Important Notes
 
 - **Do not change the structure of this repo** — the rendering pipeline is stable and intentional
@@ -195,21 +201,11 @@ All phases 1–5 are done except where noted below. Key implementation facts for
 
 ## Pending Tasks
 
-### 5.4 Related Posts
-**Status:** `[ ]`  
-**Files:** `pages/[...slug].tsx`, `components/blog/related-posts.tsx` *(new)*
-
-Show up to 3 posts sharing at least one tag at the bottom of each post. Sort by tag overlap count desc, then by date.
-
-**Steps:**
-1. In `getStaticProps` (`[...slug].tsx`), fetch all posts with `['slug', 'title', 'date', 'tags']`
-2. Filter: exclude current post; sort by overlap; take top 3
-3. Create `components/blog/related-posts.tsx` — simple card list
-4. Render below `<PostBody>` in `PostSingle`
-
-**Acceptance:** Posts with shared tags show a "Related Posts" section. Posts with no tag overlap show nothing.
+> Tasks are split into two tracks. **UI tasks** are safe to do first — they touch only styles, layouts, and static pages with no data-pipeline risk. **Functional tasks** modify the markdown pipeline or `getStaticProps` data flow and should be done after UI work is stable.
 
 ---
+
+## UI Tasks *(do first)*
 
 ### 6.1 Badges & Certifications Display
 **Status:** `[ ]` *(decisions pending — Kyle to decide before implementation)*  
@@ -227,11 +223,81 @@ Display professional badges and rankings from Credly, TryHackMe, LetsDefend, etc
 
 ---
 
-### 6.4 Resume Nav Link
+### 6.5 Custom 404 Page
 **Status:** `[ ]`  
-**Files:** `components/misc/header.tsx`
+**Files:** `pages/404.tsx` *(new)*
 
-Add a "Resume" link to the site nav (URL or PDF TBD by Kyle).
+Next.js renders a default 404 for unknown routes. Replace it with a branded page.
+
+**Steps:**
+1. Create `pages/404.tsx` — use `Layout`, keep it minimal: large "404" heading (Geist, negative letter-spacing per DESIGN.md), short message, link back to `/` and `/blog`.
+2. No need to add to `RESERVED_SLUGS` — Next.js reserves `404` at the framework level.
+
+**Acceptance:** Navigating to `/nonexistent` shows the custom page with site header/footer.
+
+---
+
+### 6.6 Typography Polish (DESIGN.md)
+**Status:** `[ ]`  
+**Files:** `styles/globals.css` or `tailwind.config.js`, affected components
+
+Apply the DESIGN.md letter-spacing and weight rules to post headings and UI elements.
+
+**Steps:**
+1. Add Tailwind utilities or CSS rules for negative letter-spacing: `-2.4px` at `h1` (48px equiv), `-1.28px` at `h2` (32px), `-0.96px` at `h3` (24px).
+2. Verify body text runs at weight 400, navigation/labels at 500, headings at 600 — adjust where off.
+3. Apply shadow-as-border (`box-shadow: 0px 0px 0px 1px rgba(0,0,0,0.08)`) to `post-preview` cards in place of any CSS `border` properties.
+4. Verify dark mode equivalents — shadow opacity may need slight increase on dark surfaces.
+
+**Acceptance:** Post headings visibly tighter at large sizes. Post preview cards use shadow-border. No regressions on mobile or dark mode.
+
+---
+
+## Functional Tasks *(do after UI is stable)*
+
+### 5.4 Related Posts
+**Status:** `[ ]`  
+**Files:** `pages/[...slug].tsx`, `components/blog/related-posts.tsx` *(new)*
+
+Show up to 3 posts sharing at least one tag at the bottom of each post. Sort by tag overlap count desc, then by date.
+
+**Steps:**
+1. In `getStaticProps` (`[...slug].tsx`), fetch all posts with `['slug', 'title', 'date', 'tags']`
+2. Filter: exclude current post; sort by overlap; take top 3
+3. Create `components/blog/related-posts.tsx` — simple card list
+4. Render below `<PostBody>` in `PostSingle`
+
+**Acceptance:** Posts with shared tags show a "Related Posts" section. Posts with no tag overlap show nothing.
+
+---
+
+### 6.2 Callout / Admonition Blocks
+**Status:** `[ ]`  
+**Files:** `lib/markdown-to-html.ts`, `styles/` (or Tailwind in `post-body.tsx`)
+
+Obsidian exports callout syntax (`> [!NOTE]`, `> [!TIP]`, `> [!WARNING]`, `> [!DANGER]`, `> [!IMPORTANT]`) as standard blockquotes with the type tag as the first line. Currently these render as unstyled blockquotes.
+
+**Steps:**
+1. In `markdown-to-html.ts`, add a rehype plugin (or custom unified transform) that detects blockquotes whose first `<p>` child matches `[!TYPE]` and rewrites them to `<div class="callout callout-{type}">`.
+2. Add Tailwind styles for each type — colour-coded left border + tinted background, consistent with the DESIGN.md palette (use grays for NOTE/TIP, use restrained accent only for WARNING/DANGER).
+3. Strip the `[!TYPE]` text node from the rendered output (or replace it with a label).
+
+**Acceptance:** `> [!NOTE] body text` renders as a styled callout card. Plain `>` blockquotes are unaffected.
+
+---
+
+### 6.3 Mermaid Diagram Support
+**Status:** `[ ]`  
+**Files:** `lib/markdown-to-html.ts`, `components/blog/post-body.tsx`
+
+Obsidian supports Mermaid fenced code blocks (\`\`\`mermaid). Currently these render as unstyled `<pre><code>` blocks.
+
+**Steps:**
+1. In `markdown-to-html.ts`, detect fenced code blocks with lang `mermaid` and emit a `<div class="mermaid">` wrapper with the raw diagram source as text content instead of a `<pre>`.
+2. In `post-body.tsx`, lazily load and initialise `mermaid` (npm package) client-side via `useEffect` — call `mermaid.initialize` + `mermaid.run` after mount.
+3. Style the wrapper to be centred, with the DESIGN.md shadow-border card treatment and 8px radius.
+
+**Acceptance:** Mermaid blocks render as diagrams on post pages. Non-mermaid code blocks are unaffected. No flash of raw source text (initialise before first paint if possible).
 
 ---
 
@@ -241,6 +307,8 @@ Add a "Resume" link to the site nav (URL or PDF TBD by Kyle).
 ---
 
 ## Known Fix List *(Kyle adds issues found during testing)*
+
+- [x] **Page width inconsistency** — `PostSingle` uses `lg:max-w-none` on its inner wrapper, which is correct when a sidebar is present (the `lg:flex` row constrains it). But pages with no backlinks/sidebar (e.g. `/` and `/resources`) have no sidebar, so the content stretches to the full `max-w-6xl` outer container and looks far too wide. **Fix:** In `components/blog/post-single.tsx`, conditionally apply `max-w-3xl mx-auto` to the main content column when `hasBacklinks` is false (or when the sidebar slot is empty). The header already has `max-w-3xl mx-auto` — the body content and the flex row wrapper need the same constraint on the no-sidebar path.
 
 - [x] home.md width inconsistency — sidebar logic preserved
 - [x] Wikilink/image fallback — `[[wikilinks]]` and `![[images]]` conversion fixed in `updateMarkdownLinks`
@@ -256,12 +324,16 @@ Add a "Resume" link to the site nav (URL or PDF TBD by Kyle).
 |------|--------|
 | Phases 1–4 | `[x]` complete |
 | Phase 5 (all except 5.4) | `[x]` complete |
-| **5.4 Related posts** | `[ ]` next up |
-| 6.1 Badges display | `[ ]` pending Kyle's decisions |
-| 6.4 Resume nav link | `[ ]` deferred |
+| **UI: 6.5 Custom 404 page** | `[x]` done |
+| **UI: 6.6 Typography polish** | `[x]` done |
+| UI: 6.1 Badges display | `[ ]` pending Kyle's decisions |
+| Functional: 5.4 Related posts | `[ ]` after UI |
+| Functional: 6.2 Callout blocks | `[ ]` after UI |
+| Functional: 6.3 Mermaid diagrams | `[ ]` after UI |
 | 3.2 Giscus comments | postponed |
 
 ### Architecture Rules
+- `DESIGN.md` at repo root — read before writing any UI; Vercel-inspired design tokens (typography, shadows, spacing)
 - `RESERVED_SLUGS` in `[...slug].tsx` — update when adding new concrete pages
 - `blogExcludedSlugs` in `lib/config.ts` — blog feed exclusion only; does NOT block path generation
 - `featuredPosts` in `lib/config.ts` — drives Popular Posts sidebar on pages without backlinks
@@ -273,6 +345,10 @@ Add a "Resume" link to the site nav (URL or PDF TBD by Kyle).
 ---
 
 ## Change Log
+
+### 2026-04-29
+- Added `DESIGN.md` (Vercel-inspired system) and wired it into Important Notes, Architecture Rules
+- Added tasks 6.2 (callout blocks), 6.3 (Mermaid diagrams), 6.5 (custom 404), 6.6 (typography polish)
 
 ### 2026-04-18
 - Simplified AGENTS.md: collapsed completed phases 1–5 into reference table; kept full detail for pending tasks only

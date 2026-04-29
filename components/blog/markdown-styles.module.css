@@ -473,7 +473,8 @@
 }
 
 .markdown-body g-emoji {
-  font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+  font-family:
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
   font-size: 1em;
   font-style: normal !important;
   font-weight: 400;
