@@ -1,73 +1,38 @@
-import { getPostBySlug, getLinksMapping } from "../lib/api";
-import { markdownToHtml } from "../lib/markdown-to-html";
 import Layout from "../components/misc/layout";
-import PostSingle from "../components/blog/post-single";
+import ProjectGrid from "../components/projects/project-grid";
 import { NextSeo } from "next-seo";
 import { BLOG_CONFIG } from "../lib/config";
-import type PostType from "../interfaces/post";
+import { PROJECTS } from "../lib/projects-data";
 
-type Items = {
-  title: string;
-  excerpt: string;
-};
+const DESCRIPTION = "Things I've built, broken and occasionally finished.";
 
-type Props = {
-  post: PostType;
-  backlinks: { [k: string]: Items };
-};
-
-export default function Projects({ post, backlinks }: Props) {
-  const description = post.excerpt.slice(0, 155);
+export default function Projects() {
   return (
     <Layout>
       <NextSeo
         title="Projects"
-        description={description}
+        description={DESCRIPTION}
         canonical={`${BLOG_CONFIG.siteUrl}/projects`}
         openGraph={{
           title: "Projects",
-          description,
+          description: DESCRIPTION,
           type: "website",
         }}
       />
-      <PostSingle
-        title={post.title}
-        content={post.content}
-        date={post.date}
-        author={post.author}
-        backlinks={backlinks}
-      />
+      <section>
+        <div className="mx-auto max-w-6xl px-4 sm:px-6">
+          <div className="pt-32 pb-12 md:pt-40 md:pb-20">
+            <header className="mx-auto mb-16 max-w-3xl text-center">
+              <h1 className="h1 mb-4">Projects</h1>
+              <p className="text-lg text-vercel-gray dark:text-gray-400">
+                {DESCRIPTION}
+              </p>
+            </header>
+
+            <ProjectGrid projects={PROJECTS} />
+          </div>
+        </div>
+      </section>
     </Layout>
   );
-}
-
-export async function getStaticProps() {
-  const post = await getPostBySlug("projects", [
-    "title",
-    "excerpt",
-    "date",
-    "slug",
-    "author",
-    "content",
-  ]);
-  const content = await markdownToHtml(post.content || "", "projects");
-  const linkMapping = await getLinksMapping();
-  const backlinks = Object.keys(linkMapping).filter(
-    (k) => linkMapping[k].includes("projects") && k !== "projects"
-  );
-  const backlinkNodes = Object.fromEntries(
-    await Promise.all(
-      backlinks.map(async (slug) => {
-        const p = await getPostBySlug(slug, ["title", "excerpt"]);
-        return [slug, p];
-      })
-    )
-  );
-
-  return {
-    props: {
-      post: { ...post, content },
-      backlinks: backlinkNodes,
-    },
-  };
 }
