@@ -90,17 +90,6 @@ export default function ProjectDetail({ project }: Props) {
               ))}
             </ul>
           )}
-
-          {project.link && (
-            <a
-              href={project.link.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="mt-4 inline-flex items-center rounded-md bg-vercel-black px-4 py-2 text-sm font-medium text-white transition hover:opacity-90 dark:bg-white dark:text-vercel-black"
-            >
-              View {project.link.label}
-            </a>
-          )}
         </div>
       </section>
     </Layout>

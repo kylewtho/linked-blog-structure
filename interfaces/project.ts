@@ -9,10 +9,6 @@ type Project = {
   narrative?: string[];
   techStack: string[];
   category: ProjectCategory;
-  link?: {
-    label: string;
-    href: string;
-  };
   status?: ProjectStatus;
 };
 

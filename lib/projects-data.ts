@@ -1,7 +1,8 @@
 import type Project from "../interfaces/project";
 
 // Showcase data for the /projects pages. Kept independent of the CV and
-// linked-blog repos by design — edit this file only.
+// linked-blog repos by design — edit this file only. Description-only: no
+// outbound links to source repos or third-party sites.
 export const PROJECTS: Project[] = [
   {
     slug: "web-security-vulnerability-assessment",
@@ -10,7 +11,6 @@ export const PROJECTS: Project[] = [
       "Pentesting on live production vulnerabilities. Conducted security assessments and provided mitigation strategies.",
     techStack: ["Pentesting", "Burp Suite", "Nmap", "OWASP ASVS"],
     category: "Security",
-    link: { label: "Pearler", href: "https://www.pearler.com" },
     status: "archived",
   },
   {
@@ -20,7 +20,6 @@ export const PROJECTS: Project[] = [
       "Research project on data protection and compliance, showcased at SECEduCon5 Security Conference (runner-up).",
     techStack: ["AWS", "Security Compliance", "Data Privacy"],
     category: "Research",
-    link: { label: "AWS", href: "https://aws.amazon.com/" },
     status: "archived",
   },
   {
@@ -30,7 +29,6 @@ export const PROJECTS: Project[] = [
       "Design and development of a secure, scalable conversational AI interface. (Details protected under NDA)",
     techStack: ["JavaScript", "React.js", "Tailwind CSS", "RESTful API"],
     category: "Software",
-    link: { label: "Lorgan", href: "https://www.lorganglobal.com" },
     status: "confidential",
   },
   {
@@ -40,7 +38,6 @@ export const PROJECTS: Project[] = [
       "Real-time quiz platform featuring live gameplay and interactive UI using React.js.",
     techStack: ["React", "RESTful API", "WebSockets", "Node.js"],
     category: "Software",
-    link: { label: "UNSW", href: "https://www.unsw.edu.au" },
     status: "archived",
   },
   {
@@ -54,7 +51,6 @@ export const PROJECTS: Project[] = [
     ],
     techStack: ["Next.js 15", "TypeScript", "Tailwind CSS", "Supabase", "Zod"],
     category: "Software",
-    link: { label: "GitHub", href: "https://github.com/kylewtho/PocketLedger" },
     status: "in-progress",
   },
   {
@@ -68,10 +64,6 @@ export const PROJECTS: Project[] = [
     ],
     techStack: ["Next.js", "TypeScript", "Tailwind CSS"],
     category: "Software",
-    link: {
-      label: "GitHub",
-      href: "https://github.com/kylewtho/responder-cheatsheet",
-    },
     status: "active",
   },
   {
@@ -85,7 +77,6 @@ export const PROJECTS: Project[] = [
     ],
     techStack: ["Astro", "React", "Tailwind CSS", "Cloudflare Pages"],
     category: "Software",
-    link: { label: "GitHub", href: "https://github.com/kylewtho/interp-dojo" },
     status: "in-progress",
   },
 ];
