@@ -1,11 +1,10 @@
 import Link from "next/link";
 import Image from "next/image";
-import Layout from "../components/misc/layout";
 import { NextSeo } from "next-seo";
 
 export default function NotFound() {
   return (
-    <Layout>
+    <>
       <NextSeo title="404 — Page Not Found" noindex={true} />
       <div className="max-w-6xl mx-auto px-4 sm:px-6">
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
@@ -39,10 +38,17 @@ export default function NotFound() {
               >
                 Blog
               </Link>
+              <span className="text-gray-300 dark:text-gray-600">·</span>
+              <Link
+                href="https://projects.kyleho.net"
+                className="text-sm font-medium text-gray-900 dark:text-gray-100 underline underline-offset-4 hover:text-gray-600 dark:hover:text-gray-400 transition"
+              >
+                Projects
+              </Link>
             </div>
           </div>
         </div>
       </div>
-    </Layout>
+    </>
   );
 }

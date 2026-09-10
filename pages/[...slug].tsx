@@ -9,7 +9,6 @@ import {
 import type PostType from "../interfaces/post";
 import path from "node:path";
 import PostSingle from "../components/blog/post-single";
-import Layout from "../components/misc/layout";
 import { NextSeo } from "next-seo";
 import { BLOG_CONFIG } from "../lib/config";
 import { getReadingTime } from "../lib/reading-time";
@@ -38,7 +37,7 @@ export default function Post({ post, backlinks, readingTime, toc }: Props) {
       {router.isFallback ? (
         <h1>Loading…</h1>
       ) : (
-        <Layout>
+        <>
           <NextSeo
             title={post.title}
             description={description}
@@ -69,7 +68,7 @@ export default function Post({ post, backlinks, readingTime, toc }: Props) {
             tags={post.tags}
             toc={toc}
           />
-        </Layout>
+        </>
       )}
     </>
   );

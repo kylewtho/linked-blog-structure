@@ -1,6 +1,5 @@
 import { getPostBySlug, getLinksMapping } from "../lib/api";
 import { markdownToHtml } from "../lib/markdown-to-html";
-import Layout from "../components/misc/layout";
 import PostSingle from "../components/blog/post-single";
 import { NextSeo } from "next-seo";
 import { BLOG_CONFIG } from "../lib/config";
@@ -19,7 +18,7 @@ type Props = {
 export default function Resources({ post, backlinks }: Props) {
   const description = post.excerpt.slice(0, 155);
   return (
-    <Layout>
+    <>
       <NextSeo
         title="Resources"
         description={description}
@@ -38,7 +37,7 @@ export default function Resources({ post, backlinks }: Props) {
         backlinks={backlinks}
         compact={true}
       />
-    </Layout>
+    </>
   );
 }
 

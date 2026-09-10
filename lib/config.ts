@@ -10,7 +10,7 @@ export const BLOG_CONFIG = {
   navLinks: [
     { name: "About", href: "/about" },
     { name: "Blog", href: "/blog" },
-    { name: "Projects", href: "/projects" },
+    { name: "Projects", href: "https://projects.kyleho.net" },
     { name: "Resources", href: "/resources" },
     { name: "Resume", href: "https://cv.kyleho.net" },
   ],

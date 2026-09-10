@@ -1,5 +1,4 @@
 import { getAllPosts } from "../../lib/api";
-import Layout from "../../components/misc/layout";
 import PostPreview from "../../components/blog/post-preview";
 import PopularPosts from "../../components/blog/popular-posts";
 import { NextSeo } from "next-seo";
@@ -14,7 +13,7 @@ type Props = {
 
 export default function TagPage({ tag, posts }: Props) {
   return (
-    <Layout>
+    <>
       <NextSeo
         title={`#${tag}`}
         description={`All posts tagged #${tag} — by ${BLOG_CONFIG.author.name}.`}
@@ -56,7 +55,7 @@ export default function TagPage({ tag, posts }: Props) {
           </div>
         </div>
       </section>
-    </Layout>
+    </>
   );
 }
 
