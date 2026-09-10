@@ -21,6 +21,8 @@ type Props = {
       excerpt: string;
     };
   };
+  /** Plain content-page header (left-aligned, blog-feed-sized title) instead of the centered hero title. */
+  compact?: boolean;
 };
 
 function PostSingle({
@@ -32,6 +34,7 @@ function PostSingle({
   tags,
   toc,
   backlinks,
+  compact = false,
 }: Props) {
   const hasBacklinks = Object.keys(backlinks).length > 0;
   return (
@@ -40,10 +43,16 @@ function PostSingle({
         <div className="pt-32 pb-12 md:pt-40 md:pb-20">
           <article>
             {/* Article header */}
-            <header className="max-w-3xl mx-auto mb-20">
-              {/* Title */}
-              <h1 className="h1 text-center mb-4 text-6xl">{title}</h1>
-            </header>
+            {compact ? (
+              <header className="max-w-3xl mb-12 md:mb-20">
+                <h1 className="h1">{title}</h1>
+              </header>
+            ) : (
+              <header className="max-w-3xl mx-auto mb-20">
+                {/* Title */}
+                <h1 className="h1 text-center mb-4 text-6xl">{title}</h1>
+              </header>
+            )}
 
             {/* Article content */}
             <div

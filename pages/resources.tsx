@@ -36,6 +36,7 @@ export default function Resources({ post, backlinks }: Props) {
         date={post.date}
         author={post.author}
         backlinks={backlinks}
+        compact={true}
       />
     </Layout>
   );
