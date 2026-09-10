@@ -38,6 +38,7 @@ export default function About({ post, backlinks }: Props) {
         date={post.date}
         author={post.author}
         backlinks={backlinks}
+        compact={true}
       />
     </>
   );
