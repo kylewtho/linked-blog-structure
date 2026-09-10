@@ -1,3 +1,10 @@
+/* Reserve scrollbar space on every page, even short ones that don't need to
+   scroll — otherwise a tall page's scrollbar narrows the viewport and shifts
+   every mx-auto centered container ~7-8px left relative to a short page. */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* Code block backgrounds */
 .shiki {
   background-color: #f6f8fa !important; /* light grey in light mode — matches GitHub */
